@@ -19,4 +19,11 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
   
 ## Regression
 
-- 
+- Full report
+  - Mean sqr error
+  - Mean abs error
+  - Target mean, std
+  - R2
+- Residual plot
+- Scatter plot
+- Histogram of regressor
