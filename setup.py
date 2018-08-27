@@ -1,10 +1,12 @@
 """Package setup"""
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
     name='mlplot',
     version='1.0.0',
-    packages=['mlplot',],
+    packages=find_packages(),
     license='MIT License',
-    long_description=open('README.txt').read(),
+    long_description=open('README.md').read(),
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'],
 )
