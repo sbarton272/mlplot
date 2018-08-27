@@ -1,0 +1,45 @@
+# Run the unit tests and package releases!
+
+version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-3.6
+      - test-3.5
+      - test-2.7
+jobs:
+  test-3.6: &test-template
+    docker:
+      - image: circleci/python:3.6
+    working_directory: ~/mlplot
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - cache-{{ checksum "setup.py" }}
+          - cache-
+      - run:
+          name: Install pytest
+          command: |
+            python -m venv venv || virtualenv venv
+            ./venv/bin/activate
+            pip install pytest
+      - save_cache:
+          paths:
+            - ./venv
+          key: cache-{{ checksum "setup.py" }}
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
+            pytest
+  test-3.5:
+    <<: *test-template
+    docker:
+      - image: circleci/python:3.5
+  test-2.7:
+    <<: *test-template
+    docker:
+      - image: circleci/python:2.7
