@@ -1,6 +1,7 @@
 """Module containing all classification model evaluation plots"""
-import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve, roc_auc_score
+
+from . import plt
 
 # TODO validation
 # TODO pass in plot
@@ -19,6 +20,6 @@ def roc(y_true, y_pred):
     # Line for random
     ax.plot([0, 1], [0, 1], color='gray', linestyle='dashed')
 
-    ax.set_title(f'ROC Curve with AUC {auc:0.2}')
+    ax.set_title('ROC Curve with AUC {0:0.2}'.format(auc))
 
     return fig, ax, true_pos_rate, false_pos_rate, thresholds, auc
