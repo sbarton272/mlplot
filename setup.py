@@ -1,16 +1,23 @@
 """Package setup"""
 from setuptools import setup, find_packages
+import sys
+
+INSTALL_REQUIRES = [
+    'matplotlib==2.2.3',
+    'numpy==1.15.1',
+    'scipy==1.1.0',
+    'scikit-learn==0.19.2',
+]
+if sys.version_info[0] == 2:
+    INSTALL_REQUIRES.append('pathlib==1.0.1')
 
 setup(
     name='mlplot',
-    version='1.0.0',
+    version='0.0.0',
     packages=find_packages(),
     license='MIT License',
     long_description=open('README.md').read(),
-    install_requires=[
-        'matplotlib==2.2.3',
-        'numpy==1.15.1',
-    ],
+    install_requires=INSTALL_REQUIRES,
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
 )
