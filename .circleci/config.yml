@@ -13,7 +13,6 @@ jobs:
     docker:
       - image: circleci/python:3.6
     working_directory: ~/mlplot
-
     steps:
       - checkout
       - restore_cache:
@@ -35,11 +34,13 @@ jobs:
           name: Run tests
           command: |
             . venv/bin/activate
-            pytest
+            python setup.py test
+
   python-3.5:
     <<: *test-template
     docker:
       - image: circleci/python:3.5
+
   python-2.7:
     <<: *test-template
     docker:
