@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/sbarton272/mlplot.svg?style=svg)](https://circleci.com/gh/sbarton272/mlplot)
+
 # mlplot
 Machine learning evaluation plots using matplotlib
 
@@ -16,7 +18,7 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
   - Accuracy score
   - F1 score
   - Number of samples of each class
-  
+
 ## Regression
 
 - Full report
