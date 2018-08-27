@@ -9,9 +9,13 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 
 ## Classification
 
-- ROC with AUC number
+### ROC with AUC number
 ![ROC plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/test/output/test_roc.png)
 
+### Calibration
+![calibration plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/test/output/test_calibration.png)
+
+### TODO
 - Recall, precision and threshold
 - Population histograms
 - Residual plot --> what is the real name?

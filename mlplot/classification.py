@@ -6,6 +6,7 @@ from . import plt
 
 # TODO validation
 # TODO pass in plot
+# TODO figure out return values
 def roc(y_true, y_pred):
     """Reciever operating curve"""
     # Compute false positive rate, true positive rate and AUC
@@ -25,13 +26,15 @@ def roc(y_true, y_pred):
 
     return fig, ax, true_pos_rate, false_pos_rate, thresholds, auc
 
+
 def calibration(y_true, y_pred, n_bins=10):
     """Plot a calibration plot as found at http://scikit-learn.org/stable/modules/calibration.html"""
     counts, bin_edges = np.histogram(y_pred, bins=n_bins, range=(0, 1))
     bin_labels = np.digitize(y_pred, bin_edges[:-1]) - 1
     fraction_positive = np.bincount(bin_labels, weights=y_true) / counts
-    centers = (bin_edges[:-1] + bin_edges[1:]) / 2
+    centers = np.bincount(bin_labels, weights=y_pred) / counts
 
+    # Used to measure how far off from fully calibrated https://en.wikipedia.org/wiki/Brier_score
     brier = brier_score_loss(y_true=y_true, y_prob=y_pred)
 
     # Create figure
