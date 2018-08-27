@@ -12,7 +12,7 @@ def roc(y_true, y_pred):
     auc = roc_auc_score(y_true=y_true, y_score=y_pred)
 
     # Create figure
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(5, 5))
     ax.plot(false_pos_rate, true_pos_rate)
     ax.set_xlabel('False Positive Rate')
     ax.set_ylabel('True Positive Rate')

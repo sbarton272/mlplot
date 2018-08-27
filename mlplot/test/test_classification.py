@@ -1,9 +1,11 @@
 """Tests for the classification plots"""
+import numpy as np
+
 from . import TEST_DIR
 import mlplot.classification as clf
 
-Y_TRUE = [1, 0, 1, 0, 1, 0, 1, 0]
-Y_PRED = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]
+Y_TRUE = np.random.randint(2, size=1000)
+Y_PRED = np.clip(np.random.normal(0.25, 0.3, size=Y_TRUE.shape) + Y_TRUE * 0.25, 0, 1)
 
 def test_roc():
     """Test the ROC plot"""
