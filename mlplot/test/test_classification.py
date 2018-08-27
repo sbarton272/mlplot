@@ -1,7 +1,5 @@
 """Tests for the classification plots"""
-import numpy as np
-
-from . import TEST_DIR
+from . import TEST_DIR, np
 import mlplot.classification as clf
 
 Y_TRUE = np.random.randint(2, size=1000)

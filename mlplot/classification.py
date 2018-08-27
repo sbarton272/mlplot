@@ -33,7 +33,7 @@ def calibration(y_true, y_pred, n_bins=10):
     centers = (bin_edges[:-1] + bin_edges[1:]) / 2
 
     # Create figure
-    fig, axes = plt.subplots(2, 1, figsize=(5, 5))
+    fig, axes = plt.subplots(2, 1, figsize=(5, 8))
 
     # Fraction positive
     axes[0].plot(centers, fraction_positive)
@@ -41,6 +41,6 @@ def calibration(y_true, y_pred, n_bins=10):
     axes[0].plot([0, 1], [0, 1], color='gray', linestyle='dashed')
 
     # Counts
-    axes[1].bar(centers, counts)
+    axes[1].bar(centers, counts, width=1 / (n_bins+1), fill=False)
 
     return fig, axes, centers, fraction_positive, counts
