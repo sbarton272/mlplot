@@ -9,4 +9,4 @@ def test_roc():
     """Test the ROC plot"""
 
     fig, ax, true_pos_rate, false_pos_rate, thresholds, auc = clf.roc(Y_TRUE, Y_PRED)
-    fig.savefig(TEST_DIR / 'test_roc.png')
+    fig.savefig(str(TEST_DIR / 'test_roc.png'))
