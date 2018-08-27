@@ -1,6 +1,6 @@
 """Module containing all classification model evaluation plots"""
 import numpy as np
-from sklearn.metrics import roc_curve, roc_auc_score
+from sklearn.metrics import roc_curve, roc_auc_score, brier_score_loss
 
 from . import plt
 
@@ -32,15 +32,20 @@ def calibration(y_true, y_pred, n_bins=10):
     fraction_positive = np.bincount(bin_labels, weights=y_true) / counts
     centers = (bin_edges[:-1] + bin_edges[1:]) / 2
 
+    brier = brier_score_loss(y_true=y_true, y_prob=y_pred)
+
     # Create figure
     fig, axes = plt.subplots(2, 1, figsize=(5, 8))
 
     # Fraction positive
     axes[0].plot(centers, fraction_positive)
+    axes[0].set_title('Calibration Brier Score {0:0.3}'.format(brier))
     axes[0].set_ylabel('Fraction Positive')
     axes[0].plot([0, 1], [0, 1], color='gray', linestyle='dashed')
 
     # Counts
-    axes[1].bar(centers, counts, width=1 / (n_bins+1), fill=False)
+    axes[1].bar(centers, counts, width=1 / (n_bins+2), fill=False)
+    axes[1].set_ylabel('Count Samples')
+    axes[1].set_xlabel('Mean Bucket Prediction')
 
     return fig, axes, centers, fraction_positive, counts
