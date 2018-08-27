@@ -22,6 +22,7 @@ jobs:
       - run:
           name: Install pytest
           command: |
+            mkdir -p ./venv
             virtualenv venv
             . venv/bin/activate
             pip install --upgrade pip
