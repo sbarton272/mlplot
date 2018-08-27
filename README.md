@@ -10,7 +10,7 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 ## Classification
 
 - ROC with AUC number
-![ROC plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/mlplot/test/output/test_roc.png)
+![ROC plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/test/output/test_roc.png)
 
 - Recall, precision and threshold
 - Population histograms
