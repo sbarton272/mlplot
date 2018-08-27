@@ -1,4 +1,5 @@
 """Module containing all classification model evaluation plots"""
+import numpy as np
 from sklearn.metrics import roc_curve, roc_auc_score
 
 from . import plt
@@ -23,3 +24,23 @@ def roc(y_true, y_pred):
     ax.set_title('ROC Curve with AUC {0:0.2}'.format(auc))
 
     return fig, ax, true_pos_rate, false_pos_rate, thresholds, auc
+
+def calibration(y_true, y_pred, n_bins=10):
+    """Plot a calibration plot as found at http://scikit-learn.org/stable/modules/calibration.html"""
+    counts, bin_edges = np.histogram(y_pred, bins=n_bins, range=(0, 1))
+    bin_labels = np.digitize(y_pred, bin_edges[:-1]) - 1
+    fraction_positive = np.bincount(bin_labels, weights=y_true) / counts
+    centers = (bin_edges[:-1] + bin_edges[1:]) / 2
+
+    # Create figure
+    fig, axes = plt.subplots(2, 1, figsize=(5, 5))
+
+    # Fraction positive
+    axes[0].plot(centers, fraction_positive)
+    axes[0].set_ylabel('Fraction Positive')
+    axes[0].plot([0, 1], [0, 1], color='gray', linestyle='dashed')
+
+    # Counts
+    axes[1].bar(centers, counts)
+
+    return fig, axes, centers, fraction_positive, counts
