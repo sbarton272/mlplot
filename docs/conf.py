@@ -79,6 +79,7 @@ pygments_style = 'sphinx'
 # Document Python Code
 autoapi_type = 'python'
 autoapi_dirs = ['../mlplot']
+autoapi_ignore = ['test_*']
 
 # -- Options for HTML output -------------------------------------------------
 
