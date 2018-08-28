@@ -9,11 +9,3 @@ ML Plot
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   mlplot
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
