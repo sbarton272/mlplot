@@ -22,11 +22,12 @@
 project = 'mlplot'
 copyright = '2018, Spencer Barton'
 author = 'Spencer Barton'
+short_description = 'ML Evlaution Ploting Library'
 
 # The short X.Y version
-version = ''
+version = '0.0'
 # The full version, including alpha/beta/rc tags
-release = '0.0.0'
+release = '0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -39,7 +40,7 @@ release = '0.0.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
+    'autoapi.extension',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
@@ -75,6 +76,9 @@ exclude_patterns = []
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
+# Document Python Code
+autoapi_type = 'python'
+autoapi_dirs = ['../mlplot']
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -135,7 +139,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'mlplot.tex', 'mlplot Documentation',
+    (master_doc, 'mlplot.tex', short_description,
      'Spencer Barton', 'manual'),
 ]
 
@@ -145,7 +149,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'mlplot', 'mlplot Documentation',
+    (master_doc, 'mlplot', short_description,
      [author], 1)
 ]
 
@@ -156,8 +160,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'mlplot', 'mlplot Documentation',
-     author, 'mlplot', 'One line description of project.',
+    (master_doc, 'mlplot', short_description,
+     author, 'mlplot', '.',
      'Miscellaneous'),
 ]
 
