@@ -9,7 +9,7 @@ ML Plot
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   mlplot/mlplot
+   mlplot
 
 Indices and tables
 ==================
