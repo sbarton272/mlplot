@@ -40,13 +40,9 @@ release = '0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'autoapi.extension',
-    'sphinx.ext.doctest',
-    'sphinx.ext.intersphinx',
-    'sphinx.ext.todo',
-    'sphinx.ext.coverage',
-    'sphinx.ext.mathjax',
-    'sphinx.ext.viewcode',
+    'autoapi.sphinx',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.inheritance_diagram',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -77,9 +73,7 @@ exclude_patterns = []
 pygments_style = 'sphinx'
 
 # Document Python Code
-autoapi_type = 'python'
-autoapi_dirs = ['../mlplot']
-autoapi_ignore = ['test_*']
+autoapi_modules = {'mymodule': None}
 
 # -- Options for HTML output -------------------------------------------------
 

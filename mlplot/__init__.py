@@ -9,3 +9,7 @@ if os.environ.get('DISPLAY', '') == '':
     matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
+
+from classification import roc, calibration
+
+__all__ = [roc, calibration]
