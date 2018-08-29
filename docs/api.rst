@@ -13,4 +13,5 @@ Classification Plots
 .. autosummary::
     :toctree: generated/
 
-    roc
+.. automodule:: mlplot
+   :members:
