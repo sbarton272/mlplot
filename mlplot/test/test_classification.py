@@ -14,3 +14,13 @@ def test_calibration():
     """Test calibration plot"""
     fig, ax, centers, fraction_positive, counts = clf.calibration(Y_TRUE, Y_PRED)
     fig.savefig(str(TEST_DIR / 'test_calibration.png'))
+
+def test_precision_recall():
+    """Test precision_recall plot"""
+    fig, ax, precision, recall, average_precision = clf.precision_recall(Y_TRUE, Y_PRED)
+    fig.savefig(str(TEST_DIR / 'test_precision_recall.png'))
+
+def test_precision_recall_threshold():
+    """Test precision_recall_threshold plot"""
+    fig, ax, precision, recall, threshold = clf.precision_recall_threshold(Y_TRUE, Y_PRED)
+    fig.savefig(str(TEST_DIR / 'test_precision_recall_threshold.png'))

@@ -1,6 +1,7 @@
 """Module containing all classification model evaluation plots"""
 import numpy as np
 from sklearn.metrics import roc_curve, roc_auc_score, brier_score_loss
+from sklearn.metrics import precision_recall_curve, average_precision_score
 
 from . import plt
 
@@ -52,3 +53,48 @@ def calibration(y_true, y_pred, n_bins=10):
     axes[1].set_xlabel('Mean Bucket Prediction')
 
     return fig, axes, centers, fraction_positive, counts
+
+
+def precision_recall(y_true, y_pred):
+    """Plot the precision-recall curve
+
+    http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html
+    """
+    precision, recall, _ = precision_recall_curve(y_true=y_true, probas_pred=y_pred)
+    average_precision = average_precision_score(y_true=y_true, y_score=y_pred)
+
+    # Create the figure
+    fig, ax = plt.subplots(figsize=(5, 5))
+
+    ax.step(recall, precision, where='post')
+
+    ax.set_xlabel('Recall')
+    ax.set_ylabel('Precision')
+    ax.set_ylim([0.0, 1.05])
+    ax.set_xlim([0.0, 1.0])
+    ax.set_title('2-class Precision-Recall curve: Avg Precision {0:0.2f}'.format(average_precision))
+
+    return fig, ax, precision, recall, average_precision
+
+
+def precision_recall_threshold(y_true, y_pred):
+    """Plot the precision-recall curve
+
+    http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html
+    """
+    precision, recall, threshold = precision_recall_curve(y_true=y_true, probas_pred=y_pred)
+
+    # Create the figure
+    fig, ax = plt.subplots(figsize=(5, 5))
+
+    ax.plot(threshold, recall[:-1], label='recall')
+    ax.plot(threshold, precision[:-1], label='precision')
+
+    ax.set_xlabel('Threshold')
+    ax.set_ylim([0.0, 1.05])
+    ax.set_xlim([0.0, 1.0])
+    ax.set_title('Precision-Recall vs Threshold')
+
+    ax.legend()
+
+    return fig, ax, precision, recall, threshold
