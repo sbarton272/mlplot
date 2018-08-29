@@ -9,7 +9,13 @@ from . import plt
 # TODO pass in plot
 # TODO figure out return values
 def roc(y_true, y_pred):
-    """Reciever operating curve"""
+    """Reciever operating curve
+
+    Parameters
+    ----------
+    y_true : np.array
+    y_pred : np.array
+    """
     # Compute false positive rate, true positive rate and AUC
     false_pos_rate, true_pos_rate, thresholds = roc_curve(y_true=y_true, y_score=y_pred)
     auc = roc_auc_score(y_true=y_true, y_score=y_pred)
@@ -29,7 +35,10 @@ def roc(y_true, y_pred):
 
 
 def calibration(y_true, y_pred, n_bins=10):
-    """Plot a calibration plot as found at http://scikit-learn.org/stable/modules/calibration.html"""
+    """Plot a calibration plot
+
+    This plot is as found in `sklean <http://scikit-learn.org/stable/modules/calibration.html>`_
+    """
     counts, bin_edges = np.histogram(y_pred, bins=n_bins, range=(0, 1))
     bin_labels = np.digitize(y_pred, bin_edges[:-1]) - 1
     fraction_positive = np.bincount(bin_labels, weights=y_true) / counts
