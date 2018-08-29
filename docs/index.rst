@@ -7,14 +7,17 @@ mlplot: Machine Learning Evaluation Plots
 =========================================
 
 mlplot is a Python data visualization library for machine learning evaluation plots.
-It is based on `matplotlib<https://matplotlib.org/>`_ and `sklearn<http://scikit-learn.org/>`_.
+It is based on matplotlib_ and sklearn_.
 
-The code live in `github
-<https://github.com/sbarton272/mlplot>`_.
+The code live in Github_.
+
+.. _matplotlib: https://matplotlib.org/
+.. _sklearn: http://scikit-learn.org/
+.. _Github: https://github.com/sbarton272/mlplot>
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
    Gallery
-   API Reference
+   API Reference <_api_ref>
