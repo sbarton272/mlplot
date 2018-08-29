@@ -10,8 +10,5 @@ API Reference
 Classification Plots
 --------------------
 
-.. autosummary::
-    :toctree: generated/
-
 .. automodule:: mlplot
    :members:

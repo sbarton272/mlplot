@@ -19,4 +19,4 @@ The code live in Github_.
    :maxdepth: 2
    :caption: Contents:
 
-   API Reference <_api_ref>
+   API Reference <api>
