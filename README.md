@@ -17,8 +17,11 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 ### Calibration
 ![calibration plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/test/output/test_calibration.png)
 
+### Precision-Recall
+![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/test/output/test_precision_recall.png)
+![precision recall threshold plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/test/output/test_precision_recall_threshold.png)
+
 ### TODO
-- Recall, precision and threshold
 - Population histograms
 - Residual plot --> what is the real name?
 - Confusion matrix
