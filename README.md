@@ -1,9 +1,21 @@
 [![CircleCI](https://circleci.com/gh/sbarton272/mlplot.svg?style=svg)](https://circleci.com/gh/sbarton272/mlplot)
 [![Documentation Status](https://readthedocs.org/projects/mlplot/badge/?version=latest)](https://mlplot.readthedocs.io/en/latest/?badge=latest)
 
-
 # mlplot
-Machine learning evaluation plots using matplotlib
+
+Machine learning evaluation plots using [matplotlib](https://matplotlib.org/) and [sklearn](http://scikit-learn.org/). [Check out the docs.](https://mlplot.readthedocs.io/)
+
+## Install
+
+```
+pip install mlplot
+```
+
+ML Plot is runs with python 2.7, 3.5 and 3.6!
+
+## Contributing
+
+Create a PR!
 
 # Plots
 

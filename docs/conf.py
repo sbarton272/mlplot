@@ -24,10 +24,11 @@ copyright = '2018, Spencer Barton'
 author = 'Spencer Barton'
 short_description = 'ML Evlaution Ploting Library'
 
+# TODO get from library
 # The short X.Y version
-version = '0.0'
+version = '0.0.0'
 # The full version, including alpha/beta/rc tags
-release = '0'
+release = '0.0.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -41,7 +42,9 @@ release = '0'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.inheritance_diagram',
+    'sphinx.ext.coverage',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.intersphinx',
     'sphinx.ext.napoleon',
 ]
 
@@ -73,6 +76,7 @@ exclude_patterns = []
 pygments_style = 'sphinx'
 
 # Document Python Code
+autosummary_generate = True
 napoleon_google_docstring = False
 napoleon_use_param = False
 napoleon_use_ivar = True
@@ -174,3 +178,12 @@ intersphinx_mapping = {'https://docs.python.org/': None}
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+# -- Intersphinx ------------------------------------------------
+
+intersphinx_mapping = {
+    'numpy': ('http://docs.scipy.org/doc/numpy/', None),
+    'scipy': ('http://docs.scipy.org/doc/scipy/reference/', None),
+    'matplotlib': ('http://matplotlib.org/', None),
+    'sklearn': ('http://scikit-learn.org/', None),
+}
