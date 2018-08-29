@@ -26,5 +26,4 @@ Installation
    :maxdepth: 2
    :caption: Contents:
 
-   Overview <index>
    API Reference <api>
