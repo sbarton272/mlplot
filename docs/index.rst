@@ -19,5 +19,4 @@ The code live in Github_.
    :maxdepth: 2
    :caption: Contents:
 
-   Gallery
    API Reference <_api_ref>
