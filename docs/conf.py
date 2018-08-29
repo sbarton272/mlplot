@@ -76,6 +76,7 @@ exclude_patterns = []
 pygments_style = 'sphinx'
 
 # Document Python Code
+autodoc_default_flags = ['show-inheritance', 'members']
 autosummary_generate = True
 napoleon_google_docstring = False
 napoleon_use_param = False

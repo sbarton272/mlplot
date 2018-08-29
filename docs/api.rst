@@ -1,7 +1,3 @@
-.. _api_ref:
-
-.. currentmodule:: mlplot
-
 API Reference
 =============
 
@@ -10,5 +6,6 @@ API Reference
 Classification Plots
 --------------------
 
-.. automodule:: mlplot
-   :members:
+Plots to evaluate classification models.
+
+.. automodule:: mlplot.classification
