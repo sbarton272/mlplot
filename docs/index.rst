@@ -15,8 +15,16 @@ The code live in Github_.
 .. _sklearn: http://scikit-learn.org/
 .. _Github: https://github.com/sbarton272/mlplot>
 
+Installation
+------------
+
+.. code-block:: bash
+
+   pip install mlplot
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   Overview <index>
    API Reference <api>
