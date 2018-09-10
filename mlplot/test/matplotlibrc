@@ -1,0 +1,4 @@
+# Matplotlib configuration for testing
+
+backend: Agg
+figure.figsize: 5, 5
