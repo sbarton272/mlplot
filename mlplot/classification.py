@@ -107,3 +107,14 @@ def precision_recall_threshold(y_true, y_pred):
     ax.legend()
 
     return fig, ax, precision, recall, threshold
+
+
+def population_histogram(y_true, y_pred):
+    """Plot histograms of the predictions grouped by class
+    """
+    fig, ax = plt.subplots(figsize=(5, 5))
+
+    ax.hist(y_pred[y_true])
+    ax.hist(y_pred[~y_true])
+
+    return fig, ax

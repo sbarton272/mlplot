@@ -24,3 +24,8 @@ def test_precision_recall_threshold():
     """Test precision_recall_threshold plot"""
     fig, ax, precision, recall, threshold = clf.precision_recall_threshold(Y_TRUE, Y_PRED)
     fig.savefig(str(TEST_DIR / 'test_precision_recall_threshold.png'))
+
+def test_population_histogram():
+    """Test population_histogram plot"""
+    fig, ax = clf.population_histogram(Y_TRUE, Y_PRED)
+    fig.savefig(str(TEST_DIR / 'test_population_histogram.png'))
