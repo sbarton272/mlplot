@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.metrics import roc_curve, roc_auc_score, brier_score_loss
 from sklearn.metrics import precision_recall_curve, average_precision_score
 
-from . import plt
+import matplotlib.pyplot as plt
 
 # TODO validation
 # TODO pass in plot
