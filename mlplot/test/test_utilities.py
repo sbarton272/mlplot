@@ -1,4 +1,5 @@
 """Test basic use of utility functions"""
+import matplotlib
 import numpy as np
 import pytest
 
@@ -63,4 +64,8 @@ def test_classification_wrapper():
 
     # Check failure raises correct error
     with pytest.raises(ValueError) as err:
-        docstring_func(['a', 'b'], [1, 0], {'b': 'class2', 'c': 'class3'}, foo='bar')
+        docstring_func(['a', 'b'], [1, 0, 1], foo='bar')
+
+    # Success case
+    ax = docstring_func(['a', 'b'], [1, 0], foo='')
+    assert isinstance(ax, matplotlib.axes.Axes)
