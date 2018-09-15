@@ -1,4 +1,5 @@
 """Common code to make writing plotting functions easier"""
+from collections import namedtuple
 from functools import wraps
 
 import matplotlib.pyplot as plt
@@ -72,7 +73,7 @@ def to_np_array(iterable, name):
 
 
 # TODO cleanup
-def validate_classification_arguments(y_true, y_pred, labels):
+def validate_classification_arguments(y_true, y_pred, labels=None):
     """Validate arguments for classification plots and return the cleaned-up arguments"""
     # Convert iterable to numpy array
     y_true = to_np_array(y_true, 'y_true')
@@ -87,8 +88,12 @@ def validate_classification_arguments(y_true, y_pred, labels):
     values = np.unique(y_true)
     assert len(values) == 2, 'y_true should have 2 values'
     values_map = {0.0: values[0], 1.0: values[1]}
-    y_true[y_true == values[0]] = 0.0
-    y_true[y_true == values[1]] = 1.0
+
+    # Convert y_true to float values
+    numeric_y_true = np.zeros(shape=y_true.shape)
+    numeric_y_true[y_true == values[0]] = 0.0
+    numeric_y_true[y_true == values[1]] = 1.0
+    y_true = numeric_y_true
 
     # Validate and update the labels map
     if labels:
