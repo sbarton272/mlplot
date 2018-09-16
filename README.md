@@ -24,17 +24,17 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 ## Classification
 
 ### ROC with AUC number
-![ROC plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/test/output/test_roc.png)
+![ROC plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_roc.png)
 
 ### Calibration
-![calibration plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/test/output/test_calibration.png)
+![calibration plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_calibration.png)
 
 ### Precision-Recall
-![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/test/output/test_precision_recall.png)
-![precision recall threshold plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/test/output/test_precision_recall_threshold.png)
+![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_precision_recall.png)
+![precision recall threshold plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_precision_recall_threshold.png)
 
 ### Population histograms
-![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/mlplot/test/output/test_population_histogram.png)
+![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_population_histogram.png)
 
 ### TODO
 - Residual plot --> what is the real name?

@@ -55,6 +55,17 @@ def test_validate_classification_arguments():
     assert np.allclose(y_pred, [1, 0])
     assert labels == {0.0: 'a', 1.0: 'b'}
 
+    y_true, y_pred, labels = validate_classification_arguments([1, 2], [1, 0])
+    assert np.allclose(y_true, [0, 1])
+    assert np.allclose(y_pred, [1, 0])
+    assert labels == {0.0: '1', 1.0: '2'}
+
+    y_true, y_pred, labels = validate_classification_arguments([1, 2], [1, 0], {1: 'a', 2: 'b'})
+    assert np.allclose(y_true, [0, 1])
+    assert np.allclose(y_pred, [1, 0])
+    assert labels == {0.0: 'a', 1.0: 'b'}
+
+
 def test_classification_wrapper():
     """Test basic classification argument wrapper"""
 

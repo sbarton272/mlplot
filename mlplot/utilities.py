@@ -102,7 +102,7 @@ def validate_classification_arguments(y_true, y_pred, labels=None):
         assert set(labels.keys()) == set(values), 'Labels mapping should have keys for all values ({})'.format(values)
         labels = {val: labels[lbl] for val, lbl in values_map.items()}
     else:
-        labels = values_map
+        labels = {key: str(val) for key, val in values_map.items()}
 
     # Ensure y_pred has numeric values between 0.0-1.0
     assert np.issubdtype(y_pred.dtype, np.number), 'y_pred must contain numeric types'

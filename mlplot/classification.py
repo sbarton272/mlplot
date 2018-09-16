@@ -105,5 +105,13 @@ def population_histogram(y_true, y_pred, labels=None, ax=None):
     """
     alpha = 0.5  # Bars should be fairly transparent
     cond = y_true.astype(bool)
-    ax.hist(y_pred[cond], alpha=alpha)
-    ax.hist(y_pred[~cond], alpha=alpha)
+    ax.hist(y_pred[cond], alpha=alpha, label=labels[1])
+    ax.hist(y_pred[~cond], alpha=alpha, label=labels[0])
+
+    # Keep consistent x axis
+    ax.set_xlim(0, 1)
+
+    ax.legend()
+    ax.set_title('Distribution of predictions by class')
+    ax.set_ylabel('count')
+    ax.set_xlabel('y_pred')
