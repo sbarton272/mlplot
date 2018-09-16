@@ -5,23 +5,17 @@ from sklearn.metrics import precision_recall_curve, average_precision_score
 
 import matplotlib.pyplot as plt
 
-# TODO validation
-# TODO pass in plot
-# TODO figure out return values
-def roc(y_true, y_pred):
-    """Reciever operating curve
+from mlplot.utilities import classification_args
 
-    Parameters
-    ----------
-    y_true : np.array
-    y_pred : np.array
+@classification_args
+def roc(y_true, y_pred, labels, ax):
+    """Reciever operating curve
     """
     # Compute false positive rate, true positive rate and AUC
     false_pos_rate, true_pos_rate, thresholds = roc_curve(y_true=y_true, y_score=y_pred)
     auc = roc_auc_score(y_true=y_true, y_score=y_pred)
 
     # Create figure
-    fig, ax = plt.subplots(figsize=(5, 5))
     ax.plot(false_pos_rate, true_pos_rate)
     ax.set_xlabel('False Positive Rate')
     ax.set_ylabel('True Positive Rate')
@@ -31,13 +25,19 @@ def roc(y_true, y_pred):
 
     ax.set_title('ROC Curve with AUC {0:0.2}'.format(auc))
 
-    return fig, ax, true_pos_rate, false_pos_rate, thresholds, auc
 
-
-def calibration(y_true, y_pred, n_bins=10):
+@classification_args
+def calibration(y_true, y_pred, labels, ax, n_bins=10):
     """Plot a calibration plot
 
+    Calibration plots are used the determine how well the predicted values match the true value.
+
     This plot is as found in `sklean <http://scikit-learn.org/stable/modules/calibration.html>`_
+
+    Parameters
+    ----------
+    n_bins : int
+             The number of bins to group y_pred
     """
     counts, bin_edges = np.histogram(y_pred, bins=n_bins, range=(0, 1))
     bin_labels = np.digitize(y_pred, bin_edges[:-1]) - 1
@@ -47,24 +47,21 @@ def calibration(y_true, y_pred, n_bins=10):
     # Used to measure how far off from fully calibrated https://en.wikipedia.org/wiki/Brier_score
     brier = brier_score_loss(y_true=y_true, y_prob=y_pred)
 
-    # Create figure
-    fig, axes = plt.subplots(2, 1, figsize=(5, 8))
-
     # Fraction positive
-    axes[0].plot(centers, fraction_positive)
-    axes[0].set_title('Calibration Brier Score {0:0.3}'.format(brier))
-    axes[0].set_ylabel('Fraction Positive')
-    axes[0].plot([0, 1], [0, 1], color='gray', linestyle='dashed')
+    ax.plot(centers, fraction_positive)
+    ax.set_title('Calibration Brier Score {0:0.3}'.format(brier))
+    ax.set_ylabel('Fraction Positive')
+    ax.plot([0, 1], [0, 1], color='gray', linestyle='dashed')
 
     # Counts
-    axes[1].bar(centers, counts, width=1 / (n_bins+2), fill=False)
-    axes[1].set_ylabel('Count Samples')
-    axes[1].set_xlabel('Mean Bucket Prediction')
+    ax_r = ax.twinx()
+    ax_r.bar(centers, counts, width=1 / (n_bins+2), fill=False)
+    ax_r.set_ylabel('Count Samples')
+    ax_r.set_xlabel('Mean Bucket Prediction')
 
-    return fig, axes, centers, fraction_positive, counts
 
-
-def precision_recall(y_true, y_pred):
+@classification_args
+def precision_recall(y_true, y_pred, labels, ax):
     """Plot the precision-recall curve
 
     http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html
@@ -73,8 +70,6 @@ def precision_recall(y_true, y_pred):
     average_precision = average_precision_score(y_true=y_true, y_score=y_pred)
 
     # Create the figure
-    fig, ax = plt.subplots(figsize=(5, 5))
-
     ax.step(recall, precision, where='post')
 
     ax.set_xlabel('Recall')
@@ -83,10 +78,9 @@ def precision_recall(y_true, y_pred):
     ax.set_xlim([0.0, 1.0])
     ax.set_title('2-class Precision-Recall curve: Avg Precision {0:0.2f}'.format(average_precision))
 
-    return fig, ax, precision, recall, average_precision
 
-
-def precision_recall_threshold(y_true, y_pred):
+@classification_args
+def precision_recall_threshold(y_true, y_pred, labels, ax):
     """Plot the precision-recall curve
 
     http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html
@@ -94,8 +88,6 @@ def precision_recall_threshold(y_true, y_pred):
     precision, recall, threshold = precision_recall_curve(y_true=y_true, probas_pred=y_pred)
 
     # Create the figure
-    fig, ax = plt.subplots(figsize=(5, 5))
-
     ax.plot(threshold, recall[:-1], label='recall')
     ax.plot(threshold, precision[:-1], label='precision')
 
@@ -106,15 +98,11 @@ def precision_recall_threshold(y_true, y_pred):
 
     ax.legend()
 
-    return fig, ax, precision, recall, threshold
 
-
-def population_histogram(y_true, y_pred):
+@classification_args
+def population_histogram(y_true, y_pred, labels, ax):
     """Plot histograms of the predictions grouped by class
     """
-    fig, ax = plt.subplots(figsize=(5, 5))
-
-    ax.hist(y_pred[y_true])
-    ax.hist(y_pred[~y_true])
-
-    return fig, ax
+    cond = y_true.astype(bool)
+    ax.hist(y_pred[cond])
+    ax.hist(y_pred[~cond])

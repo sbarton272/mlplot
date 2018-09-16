@@ -1,5 +1,6 @@
 """Test basic use of utility functions"""
 import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 import pytest
 
@@ -10,7 +11,7 @@ def simple_func(y_true, y_pred, labels, ax):
     """docstring"""
 
 @classification_args
-def docstring_func(y_true, y_pred, labels, ax, foo):
+def docstring_func(y_true, y_pred, labels, ax, foo=None):
     """docstring
 
     Parameters
@@ -67,5 +68,9 @@ def test_classification_wrapper():
         docstring_func(['a', 'b'], [1, 0, 1], foo='bar')
 
     # Success case
-    ax = docstring_func(['a', 'b'], [1, 0], foo='')
+    ax = docstring_func(['a', 'b'], [1, 0])
+    assert isinstance(ax, matplotlib.axes.Axes)
+
+    _, ax = plt.subplots()
+    ax = docstring_func(['a', 'b'], [1, 0], ax=ax, foo='bar')
     assert isinstance(ax, matplotlib.axes.Axes)

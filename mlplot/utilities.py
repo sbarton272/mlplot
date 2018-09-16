@@ -2,6 +2,7 @@
 from collections import namedtuple
 from functools import wraps
 
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -58,7 +59,7 @@ def classification_args(func):
 def get_matplotlib_ax(ax):
     """Validate matplotlib axes or generate one if not provided"""
     if ax:
-        assert isinstance(ax, plt.axes.Axes), 'You must pass a valid matplotlib.axes.Axes'
+        assert isinstance(ax, matplotlib.axes.Axes), 'You must pass a valid matplotlib.axes.Axes'
     else:
         _, ax = plt.subplots()
     return ax
@@ -69,7 +70,7 @@ def to_np_array(iterable, name):
     try:
         return np.array(iterable).ravel()
     except:
-        raise AssertionError(f'Cannot convert {name} to numpy array')
+        raise AssertionError('Cannot convert {} to numpy array'.format(name))
 
 
 # TODO cleanup
@@ -98,7 +99,7 @@ def validate_classification_arguments(y_true, y_pred, labels=None):
     # Validate and update the labels map
     if labels:
         assert len(labels) == 2, 'Labels mapping should have only 2 classes'
-        assert set(labels.keys()) == set(values), f'Labels mapping should have keys for all values ({values})'
+        assert set(labels.keys()) == set(values), 'Labels mapping should have keys for all values ({})'.format(values)
         labels = {val: labels[lbl] for val, lbl in values_map.items()}
     else:
         labels = values_map
