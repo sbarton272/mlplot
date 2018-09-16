@@ -103,6 +103,7 @@ def precision_recall_threshold(y_true, y_pred, labels=None, ax=None):
 def population_histogram(y_true, y_pred, labels=None, ax=None):
     """Plot histograms of the predictions grouped by class
     """
+    alpha = 0.5  # Bars should be fairly transparent
     cond = y_true.astype(bool)
-    ax.hist(y_pred[cond])
-    ax.hist(y_pred[~cond])
+    ax.hist(y_pred[cond], alpha=alpha)
+    ax.hist(y_pred[~cond], alpha=alpha)
