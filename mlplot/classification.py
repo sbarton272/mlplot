@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from mlplot.utilities import classification_args
 
 @classification_args
-def roc(y_true, y_pred, labels=None, ax=None):
+def roc(y_true, y_pred, ax=None):
     """Reciever operating curve
     """
     # Compute false positive rate, true positive rate and AUC
@@ -27,7 +27,7 @@ def roc(y_true, y_pred, labels=None, ax=None):
 
 
 @classification_args
-def calibration(y_true, y_pred, labels=None, ax=None, n_bins=10):
+def calibration(y_true, y_pred, ax=None, n_bins=10):
     """Plot a calibration plot
 
     Calibration plots are used the determine how well the predicted values match the true value.
@@ -61,7 +61,7 @@ def calibration(y_true, y_pred, labels=None, ax=None, n_bins=10):
 
 
 @classification_args
-def precision_recall(y_true, y_pred, labels=None, ax=None):
+def precision_recall(y_true, y_pred, ax=None):
     """Plot the precision-recall curve
 
     An example of this plot can be found on `sklean <http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html>`_.
@@ -80,7 +80,7 @@ def precision_recall(y_true, y_pred, labels=None, ax=None):
 
 
 @classification_args
-def precision_recall_threshold(y_true, y_pred, labels=None, ax=None):
+def precision_recall_threshold(y_true, y_pred, ax=None):
     """Plot the precision-recall curve
 
     An example of this plot can be found on `sklean <http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html>`_.
@@ -100,13 +100,13 @@ def precision_recall_threshold(y_true, y_pred, labels=None, ax=None):
 
 
 @classification_args
-def population_histogram(y_true, y_pred, labels=None, ax=None):
+def population_histogram(y_true, y_pred, class_labels=None, ax=None):
     """Plot histograms of the predictions grouped by class
     """
     alpha = 0.5  # Bars should be fairly transparent
     cond = y_true.astype(bool)
-    ax.hist(y_pred[cond], alpha=alpha, label=labels[1])
-    ax.hist(y_pred[~cond], alpha=alpha, label=labels[0])
+    ax.hist(y_pred[cond], alpha=alpha, label=class_labels[1])
+    ax.hist(y_pred[~cond], alpha=alpha, label=class_labels[0])
 
     # Keep consistent x axis
     ax.set_xlim(0, 1)

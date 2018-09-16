@@ -1,5 +1,6 @@
 """Common code to make writing plotting functions easier"""
 from collections import namedtuple
+import inspect
 from functools import wraps
 
 import matplotlib
@@ -19,9 +20,9 @@ y_true  : np.array of str or int
           There should be two labels of type string or numeric.
 y_pred  : np.array of float
           A vector of size N that contains predictions as floats from 0 to 1.
-labels  : dict, optional
-          A dictionary mapping from lables in y_true to class names.
-          Ex: `{0: 'not dog', 1: 'is dog'}`
+class_labels  : dict, optional
+                A dictionary mapping from lables in y_true to class names.
+                Ex: `{0: 'not dog', 1: 'is dog'}`
 ax      : matplotlib.axes.Axes, optional
 """
 
@@ -38,16 +39,21 @@ def classification_args(func):
            A classification plotting function
     """
     @wraps(func)
-    def wrapper(y_true, y_pred, labels=None, ax=None, **kwargs):
+    def wrapper(y_true, y_pred, class_labels=None, ax=None, **kwargs):
         """Add default arguments and update the docstring"""
         try:
-            y_true, y_pred, labels = validate_classification_arguments(y_true, y_pred, labels)
+            args = validate_classification_arguments(y_true, y_pred, class_labels)
             ax = get_matplotlib_ax(ax)
         except AssertionError as err:
             # Raise more appropriate exception
             raise ValueError(err)
 
-        func(y_true, y_pred, labels, ax, **kwargs)
+        # Class labels are optional
+        named_args, _, _, _ = inspect.getargspec(func)
+        if 'class_labels' in named_args:
+            func(args.y_true, args.y_pred, args.class_labels, ax, **kwargs)
+        else:
+            func(args.y_true, args.y_pred, ax, **kwargs)
         return ax
 
     # Update the docstring
@@ -74,7 +80,7 @@ def to_np_array(iterable, name):
 
 
 # TODO cleanup
-def validate_classification_arguments(y_true, y_pred, labels=None):
+def validate_classification_arguments(y_true, y_pred, class_labels=None):
     """Validate arguments for classification plots and return the cleaned-up arguments"""
     # Convert iterable to numpy array
     y_true = to_np_array(y_true, 'y_true')
@@ -97,20 +103,20 @@ def validate_classification_arguments(y_true, y_pred, labels=None):
     y_true = numeric_y_true
 
     # Validate and update the labels map
-    if labels:
-        assert len(labels) == 2, 'Labels mapping should have only 2 classes'
-        assert set(labels.keys()) == set(values), 'Labels mapping should have keys for all values ({})'.format(values)
-        labels = {val: labels[lbl] for val, lbl in values_map.items()}
+    if class_labels:
+        assert len(class_labels) == 2, 'Labels mapping should have only 2 classes'
+        assert set(class_labels.keys()) == set(values), 'Labels mapping should have keys for all values ({})'.format(values)
+        class_labels = {val: class_labels[lbl] for val, lbl in values_map.items()}
     else:
-        labels = {key: str(val) for key, val in values_map.items()}
+        class_labels = {key: str(val) for key, val in values_map.items()}
 
     # Ensure y_pred has numeric values between 0.0-1.0
     assert np.issubdtype(y_pred.dtype, np.number), 'y_pred must contain numeric types'
     y_pred = y_pred.astype(float)
     assert np.all(0.0 <= y_pred) and np.all(y_pred <= 1.0), 'y_pred must contain values between 0.0 and 1.0 inclusive'
 
-    # TODO namedtuple
-    return y_true, y_pred, labels
+    ClassificationArgs = namedtuple('ClassificationArgs', ['y_true', 'y_pred', 'class_labels'])
+    return ClassificationArgs(y_true, y_pred, class_labels)
 
 
 def add_docstring_parameters(doc, parameters, header=DOCSTRING_HEADER):

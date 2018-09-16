@@ -7,11 +7,11 @@ import pytest
 from mlplot.utilities import classification_args, validate_classification_arguments
 
 @classification_args
-def simple_func(y_true, y_pred, labels, ax):
+def simple_func(y_true, y_pred, class_labels, ax):
     """docstring"""
 
 @classification_args
-def docstring_func(y_true, y_pred, labels, ax, foo=None):
+def docstring_func(y_true, y_pred, class_labels, ax, foo=None):
     """docstring
 
     Parameters
