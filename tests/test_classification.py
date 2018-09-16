@@ -8,8 +8,9 @@ Y_PRED = np.clip(np.random.normal(0.25, 0.3, size=Y_TRUE.shape) + Y_TRUE * 0.5, 
 def test_roc():
     """Test the ROC plot"""
     import matplotlib
+    import os
     print(matplotlib.matplotlib_fname())
-    print(os.environ)
+    print(os.environ.get('MATPLOTLIBRC'))
 
     ax = clf.roc(Y_TRUE, Y_PRED)
     ax.get_figure().savefig(str(TEST_DIR / 'test_roc.png'))

@@ -20,5 +20,5 @@ setup(
     long_description=open('README.md').read(),
     install_requires=INSTALL_REQUIRES,
     setup_requires=['pytest-runner'],
-    tests_require=['pytest', 'pytest-env'],
+    tests_require=['pytest'],
 )
