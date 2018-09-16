@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from mlplot.utilities import classification_args
 
 @classification_args
-def roc(y_true, y_pred, labels, ax):
+def roc(y_true, y_pred, labels=None, ax=None):
     """Reciever operating curve
     """
     # Compute false positive rate, true positive rate and AUC
@@ -27,12 +27,12 @@ def roc(y_true, y_pred, labels, ax):
 
 
 @classification_args
-def calibration(y_true, y_pred, labels, ax, n_bins=10):
+def calibration(y_true, y_pred, labels=None, ax=None, n_bins=10):
     """Plot a calibration plot
 
     Calibration plots are used the determine how well the predicted values match the true value.
 
-    This plot is as found in `sklean <http://scikit-learn.org/stable/modules/calibration.html>`_
+    This plot is as found in `sklean <http://scikit-learn.org/stable/modules/calibration.html>`_.
 
     Parameters
     ----------
@@ -61,10 +61,10 @@ def calibration(y_true, y_pred, labels, ax, n_bins=10):
 
 
 @classification_args
-def precision_recall(y_true, y_pred, labels, ax):
+def precision_recall(y_true, y_pred, labels=None, ax=None):
     """Plot the precision-recall curve
 
-    http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html
+    An example of this plot can be found on `sklean <http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html>`_.
     """
     precision, recall, _ = precision_recall_curve(y_true=y_true, probas_pred=y_pred)
     average_precision = average_precision_score(y_true=y_true, y_score=y_pred)
@@ -80,10 +80,10 @@ def precision_recall(y_true, y_pred, labels, ax):
 
 
 @classification_args
-def precision_recall_threshold(y_true, y_pred, labels, ax):
+def precision_recall_threshold(y_true, y_pred, labels=None, ax=None):
     """Plot the precision-recall curve
 
-    http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html
+    An example of this plot can be found on `sklean <http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html>`_.
     """
     precision, recall, threshold = precision_recall_curve(y_true=y_true, probas_pred=y_pred)
 
@@ -100,7 +100,7 @@ def precision_recall_threshold(y_true, y_pred, labels, ax):
 
 
 @classification_args
-def population_histogram(y_true, y_pred, labels, ax):
+def population_histogram(y_true, y_pred, labels=None, ax=None):
     """Plot histograms of the predictions grouped by class
     """
     cond = y_true.astype(bool)

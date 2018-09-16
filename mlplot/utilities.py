@@ -14,14 +14,14 @@ Parameters
 """
 
 DOCSTRING_CLASSIFICATION_PARAMETERS = """\
-y_true  : np.array
+y_true  : np.array of str or int
           A vector of size N that contains the true labels.
           There should be two labels of type string or numeric.
-y_pred  : np.array
+y_pred  : np.array of float
           A vector of size N that contains predictions as floats from 0 to 1.
 labels  : dict, optional
           A dictionary mapping from lables in y_true to class names.
-          Ex: {0: 'not dog', 1: 'is dog'}
+          Ex: `{0: 'not dog', 1: 'is dog'}`
 ax      : matplotlib.axes.Axes, optional
 """
 
