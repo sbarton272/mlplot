@@ -61,42 +61,39 @@ def calibration(y_true, y_pred, ax=None, n_bins=10):
 
 
 @classification_args
-def precision_recall(y_true, y_pred, ax=None):
+def precision_recall(y_true, y_pred, ax=None, x_axis='recall'):
     """Plot the precision-recall curve
 
     An example of this plot can be found on `sklean <http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html>`_.
+
+    Parameters
+    ----------
+    x_axis : str ('recall' or 'threshold')
+             Specify the x axis of the plot. Precision recall tends to come in 2 flavors, one precision vs recall and
+             the other precion and recall vs threshold.
     """
-    precision, recall, _ = precision_recall_curve(y_true=y_true, probas_pred=y_pred)
+    precision, recall, threshold = precision_recall_curve(y_true=y_true, probas_pred=y_pred)
     average_precision = average_precision_score(y_true=y_true, y_score=y_pred)
 
     # Create the figure
-    ax.step(recall, precision, where='post')
+    if x_axis == 'recall':
+        ax.step(recall, precision, where='post')
+        ax.set_xlabel('Recall')
+        ax.set_ylabel('Precision')
 
-    ax.set_xlabel('Recall')
-    ax.set_ylabel('Precision')
+    elif x_axis == 'threshold':
+        ax.plot(threshold, recall[:-1], label='recall')
+        ax.plot(threshold, precision[:-1], label='precision')
+        ax.set_xlabel('Threshold')
+        ax.set_ylabel('Precision/Recall')
+        ax.legend()
+
+    else:
+        raise ValueError("x_axis can be either 'recall' or 'threshold'")
+
     ax.set_ylim([0.0, 1.05])
     ax.set_xlim([0.0, 1.0])
-    ax.set_title('2-class Precision-Recall curve: Avg Precision {0:0.2f}'.format(average_precision))
-
-
-@classification_args
-def precision_recall_threshold(y_true, y_pred, ax=None):
-    """Plot the precision-recall curve
-
-    An example of this plot can be found on `sklean <http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html>`_.
-    """
-    precision, recall, threshold = precision_recall_curve(y_true=y_true, probas_pred=y_pred)
-
-    # Create the figure
-    ax.plot(threshold, recall[:-1], label='recall')
-    ax.plot(threshold, precision[:-1], label='precision')
-
-    ax.set_xlabel('Threshold')
-    ax.set_ylim([0.0, 1.05])
-    ax.set_xlim([0.0, 1.0])
-    ax.set_title('Precision-Recall vs Threshold')
-
-    ax.legend()
+    ax.set_title('Precision-Recall: Avg Precision {0:0.2f}'.format(average_precision))
 
 
 @classification_args
