@@ -33,12 +33,11 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 ![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_precision_recall.png)
 ![precision recall threshold plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_precision_recall_threshold.png)
 
-### Population histograms
+### Population Histograms
 ![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_population_histogram.png)
 
 ### TODO
-- Residual plot --> what is the real name?
-- Confusion matrix
+=- Confusion matrix
 - Full report
   - Accuracy score
   - F1 score
@@ -57,8 +56,4 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 
 ## Library Cleanup
 
-- Validate y_true and y_pred
-- Add optional ax input
 - Try in a notebook
-- Return value standardization
-- Matplotlib test suite
