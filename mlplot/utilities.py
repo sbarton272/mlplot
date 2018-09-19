@@ -143,3 +143,8 @@ def add_docstring_parameters(doc, parameters, header=DOCSTRING_HEADER):
         doc += '\n\n' + new_params
 
     return doc
+
+
+def binarize(vector, threshold=0.5):
+    """Binarize a numpy array of floats"""
+    return (vector > threshold).astype(int)

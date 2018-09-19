@@ -4,7 +4,7 @@ import sklearn.metrics as metrics
 
 import matplotlib.pyplot as plt
 
-from mlplot.utilities import classification_args
+from mlplot.utilities import classification_args, binarize
 
 @classification_args
 def roc_curve(y_true, y_pred, ax=None):
@@ -124,8 +124,7 @@ def confusion_matrix(y_true, y_pred, class_labels=None, threshold=0.5, ax=None):
     threshold : float
                 Defines the cutoff to be considered in the asserted class
     """
-    y_pred_binary = (y_pred > threshold).astype(int)
-    mat = metrics.confusion_matrix(y_true, y_pred_binary)
+    mat = metrics.confusion_matrix(y_true, binarize(y_pred, threshold))
 
     # Heatmap
     ax.imshow(mat, interpolation='nearest', cmap=plt.cm.Blues)
@@ -150,3 +149,57 @@ def confusion_matrix(y_true, y_pred, class_labels=None, threshold=0.5, ax=None):
     ax.set_ylabel('True')
     ax.set_xlabel('Prediction')
     ax.set_title('Confusion Matrix')
+
+@classification_args
+def report_table(y_true, y_pred, class_labels=None, ax=None):
+    """Generate a report table containing key stats about the dataset
+    """
+    tbl = []
+
+    # Sample counts
+    tbl.extend([
+        ('Total count', len(y_true)),
+        ('Class {} count'.format(class_labels[0]), int((y_true == 0).sum())),
+        ('Class {} count'.format(class_labels[1]), int((y_true == 1).sum())),
+    ])
+
+    # Scoring
+    f1 = metrics.f1_score(y_true=y_true, y_pred=binarize(y_pred))
+    acc = metrics.accuracy_score(y_true=y_true, y_pred=binarize(y_pred))
+    auc = metrics.roc_auc_score(y_true=y_true, y_score=y_pred)
+    tbl.extend([
+        ('F1 Score', f1),
+        ('Accuracy', acc),
+        ('AUC', auc),
+    ])
+
+    # Format the rows
+    rows = []
+    for lbl, val in tbl:
+        if isinstance(val, int):
+            formatted = [lbl, val]
+        else:
+            formatted = [lbl, '{:.2f}'.format(val)]
+        rows.append(formatted)
+
+    ax_tbl = ax.table(cellText=rows, loc='center')
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    # Remove border
+    [line.set_linewidth(0) for line in ax.spines.values()]
+
+    # Values left justified
+    cells = ax_tbl.properties()['celld']
+    for row in range(len(tbl)):
+        cells[row, 1]._loc = 'left'
+
+    # Remove table borders
+    for cell in cells.values():
+        cell.set_linewidth(0)
+
+    # Make cells larger
+    for cell in cells.values():
+        cell.set_height(0.1)
+
+    ax.set_title('Classification Report')

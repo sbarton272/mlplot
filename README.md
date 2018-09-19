@@ -39,12 +39,8 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 ### Confusion Matrix
 ![confusion matrix](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_confusion_matrix.png)
 
-### TODO
-- Confusion matrix
-- Full report
-  - Accuracy score
-  - F1 score
-  - Number of samples of each class
+### Classification Report
+![classification report](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_report_table.png)
 
 ## Regression
 
@@ -60,3 +56,5 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 ## Library Cleanup
 
 - Try in a notebook
+- Multi-model comparison
+- Report to generate multiple plots at once

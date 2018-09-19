@@ -42,3 +42,8 @@ def test_confusion_matrix():
     """Test confusion_matrix plot"""
     ax = clf.confusion_matrix(Y_TRUE, Y_PRED, LABELS)
     save_fig(ax, 'test_confusion_matrix')
+
+def test_report_table():
+    """Test report_table plot"""
+    ax = clf.report_table(Y_TRUE, Y_PRED, LABELS)
+    save_fig(ax, 'test_report_table')
