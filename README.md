@@ -58,3 +58,12 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 - Try in a notebook
 - Multi-model comparison
 - Report to generate multiple plots at once
+
+# Development
+
+## Publish to pypi
+
+```
+python setup.py sdist bdist_wheel
+twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+```

@@ -2,6 +2,8 @@
 from setuptools import setup, find_packages
 import sys
 
+VERSION = '0.0.0'
+
 INSTALL_REQUIRES = [
     'matplotlib==2.2.3',
     'numpy==1.15.1',
@@ -14,17 +16,17 @@ if sys.version_info[0] == 2:
 
 setup(
     name='mlplot',
-    version='0.0.0',
+    version=VERSION,
     packages=find_packages(),
     license='MIT License',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://mlplot.readthedocs.io/',
+    url='https://github.com/sbarton272/mlplot',
     author='sbarton272',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'Topic :: Machine Learning :: Model Evaluation',
+        'Topic :: Scientific/Engineering :: Visualization',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
