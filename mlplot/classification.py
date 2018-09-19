@@ -26,7 +26,7 @@ def roc_curve(y_true, y_pred, ax=None):
 
 
 @classification_args
-def calibration(y_true, y_pred, ax=None, n_bins=10):
+def calibration(y_true, y_pred, ax=None, n_bins='auto'):
     """Plot a calibration plot
 
     Calibration plots are used the determine how well the predicted values match the true value.
@@ -35,8 +35,8 @@ def calibration(y_true, y_pred, ax=None, n_bins=10):
 
     Parameters
     ----------
-    n_bins : int
-             The number of bins to group y_pred
+    n_bins : int or string
+             The number of bins to group y_pred. See `numpy.histogram <https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.histogram.html>`_
     """
     counts, bin_edges = np.histogram(y_pred, bins=n_bins, range=(0, 1))
     bin_labels = np.digitize(y_pred, bin_edges[:-1]) - 1
@@ -49,15 +49,18 @@ def calibration(y_true, y_pred, ax=None, n_bins=10):
     # Fraction positive
     ax.plot(centers, fraction_positive)
     ax.set_title('Calibration Brier Score {0:0.3}'.format(brier))
-    ax.set_ylabel('Fraction Positive')
+    ax.set_ylabel('Actual Probability')
+    ax.set_xlabel('Predicted Probability')
     ax.plot([0, 1], [0, 1], color='gray', linestyle='dashed')
 
     # Counts
     ax_r = ax.twinx()
-    ax_r.bar(centers, counts, width=1 / (n_bins+2), fill=False)
-    ax_r.set_ylabel('Count Samples')
-    ax_r.set_xlabel('Mean Bucket Prediction')
-
+    num_bins = len(counts)
+    ax_r.bar(centers, counts, alpha=0.5, color='black', fill=True, width=0.8/num_bins)
+    ylim = ax_r.get_ylim()
+    ax_r.set_ylim(ylim[0], ylim[1]*10)
+    ax_r.set_yticks([])
+    ax_r.set_yticklabels([])
 
 @classification_args
 def precision_recall(y_true, y_pred, x_axis='recall', ax=None):
