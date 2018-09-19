@@ -1,19 +1,18 @@
 """Module containing all classification model evaluation plots"""
 import numpy as np
-from sklearn.metrics import roc_curve, roc_auc_score, brier_score_loss
-from sklearn.metrics import precision_recall_curve, average_precision_score
+import sklearn.metrics as metrics
 
 import matplotlib.pyplot as plt
 
 from mlplot.utilities import classification_args
 
 @classification_args
-def roc(y_true, y_pred, ax=None):
+def roc_curve(y_true, y_pred, ax=None):
     """Reciever operating curve
     """
     # Compute false positive rate, true positive rate and AUC
-    false_pos_rate, true_pos_rate, thresholds = roc_curve(y_true=y_true, y_score=y_pred)
-    auc = roc_auc_score(y_true=y_true, y_score=y_pred)
+    false_pos_rate, true_pos_rate, thresholds = metrics.roc_curve(y_true=y_true, y_score=y_pred)
+    auc = metrics.roc_auc_score(y_true=y_true, y_score=y_pred)
 
     # Create figure
     ax.plot(false_pos_rate, true_pos_rate)
@@ -45,7 +44,7 @@ def calibration(y_true, y_pred, ax=None, n_bins=10):
     centers = np.bincount(bin_labels, weights=y_pred) / counts
 
     # Used to measure how far off from fully calibrated https://en.wikipedia.org/wiki/Brier_score
-    brier = brier_score_loss(y_true=y_true, y_prob=y_pred)
+    brier = metrics.brier_score_loss(y_true=y_true, y_prob=y_pred)
 
     # Fraction positive
     ax.plot(centers, fraction_positive)
@@ -61,19 +60,19 @@ def calibration(y_true, y_pred, ax=None, n_bins=10):
 
 
 @classification_args
-def precision_recall(y_true, y_pred, ax=None, x_axis='recall'):
+def precision_recall(y_true, y_pred, x_axis='recall', ax=None):
     """Plot the precision-recall curve
 
     An example of this plot can be found on `sklean <http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html>`_.
 
     Parameters
     ----------
-    x_axis : str ('recall' or 'threshold')
+    x_axis : str 'recall' or 'threshold'
              Specify the x axis of the plot. Precision recall tends to come in 2 flavors, one precision vs recall and
              the other precion and recall vs threshold.
     """
-    precision, recall, threshold = precision_recall_curve(y_true=y_true, probas_pred=y_pred)
-    average_precision = average_precision_score(y_true=y_true, y_score=y_pred)
+    precision, recall, threshold = metrics.precision_recall_curve(y_true=y_true, probas_pred=y_pred)
+    average_precision = metrics.average_precision_score(y_true=y_true, y_score=y_pred)
 
     # Create the figure
     if x_axis == 'recall':
@@ -112,3 +111,42 @@ def population_histogram(y_true, y_pred, class_labels=None, ax=None):
     ax.set_title('Distribution of predictions by class')
     ax.set_ylabel('count')
     ax.set_xlabel('y_pred')
+
+
+@classification_args
+def confusion_matrix(y_true, y_pred, class_labels=None, threshold=0.5, ax=None):
+    """Plot a heatmap for the confusion matrix
+
+    An example of this heatmap can be found on `sklean <http://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html#sphx-glr-auto-examples-model-selection-plot-confusion-matrix-py>`_.
+
+    Parameters
+    ----------
+    threshold : float
+                Defines the cutoff to be considered in the asserted class
+    """
+    y_pred_binary = (y_pred > threshold).astype(int)
+    mat = metrics.confusion_matrix(y_true, y_pred_binary)
+
+    # Heatmap
+    ax.imshow(mat, interpolation='nearest', cmap=plt.cm.Blues)
+
+    # Class labels
+    if class_labels:
+        classes = [class_labels[0], class_labels[1]]
+        tick_marks = np.arange(len(classes))
+        ax.set_xticks(tick_marks)
+        ax.set_xticklabels(classes)
+        ax.set_yticks(tick_marks)
+        ax.set_yticklabels(classes)
+
+    # Numbers in squares
+    color_thresh = mat.max() / 2
+    total = mat[:].sum()
+    for (x, y), val in np.ndenumerate(mat):
+        text_color = 'white' if val > color_thresh else 'black'
+        text = '{0}\n({1:.1f}%)'.format(val, 100*val/total)
+        ax.text(x, y, text, fontsize='large', horizontalalignment='center', color=text_color)
+
+    ax.set_ylabel('True')
+    ax.set_xlabel('Prediction')
+    ax.set_title('Confusion Matrix')

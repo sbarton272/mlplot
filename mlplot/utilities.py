@@ -51,9 +51,9 @@ def classification_args(func):
         # Class labels are optional
         named_args, _, _, _ = inspect.getargspec(func)
         if 'class_labels' in named_args:
-            func(args.y_true, args.y_pred, args.class_labels, ax, **kwargs)
+            func(y_true=args.y_true, y_pred=args.y_pred, class_labels=args.class_labels, ax=ax, **kwargs)
         else:
-            func(args.y_true, args.y_pred, ax, **kwargs)
+            func(y_true=args.y_true, y_pred=args.y_pred, ax=ax, **kwargs)
         return ax
 
     # Update the docstring
@@ -103,6 +103,7 @@ def validate_classification_arguments(y_true, y_pred, class_labels=None):
     y_true = numeric_y_true
 
     # Validate and update the labels map
+    # TODO as an array
     if class_labels:
         assert len(class_labels) == 2, 'Labels mapping should have only 2 classes'
         assert set(class_labels.keys()) == set(values), 'Labels mapping should have keys for all values ({})'.format(values)

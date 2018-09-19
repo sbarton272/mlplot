@@ -36,6 +36,9 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 ### Population Histograms
 ![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_population_histogram.png)
 
+### Confusion Matrix
+![confusion matrix](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_confusion_matrix.png)
+
 ### TODO
 - Confusion matrix
 - Full report

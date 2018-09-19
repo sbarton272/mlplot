@@ -14,7 +14,7 @@ def save_fig(ax, name):
 
 def test_roc():
     """Test the ROC plot"""
-    ax = clf.roc(Y_TRUE, Y_PRED)
+    ax = clf.roc_curve(Y_TRUE, Y_PRED)
     save_fig(ax, 'test_roc')
 
 def test_calibration():
@@ -37,3 +37,8 @@ def test_population_histogram():
 
     ax = clf.population_histogram(Y_TRUE, Y_PRED)
     save_fig(ax, 'test_population_histogram_1')
+
+def test_confusion_matrix():
+    """Test confusion_matrix plot"""
+    ax = clf.confusion_matrix(Y_TRUE, Y_PRED, LABELS)
+    save_fig(ax, 'test_confusion_matrix')
