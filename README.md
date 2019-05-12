@@ -11,7 +11,7 @@ Machine learning evaluation plots using [matplotlib](https://matplotlib.org/) an
 pip install mlplot
 ```
 
-ML Plot is runs with python 2.7, 3.5 and 3.6!
+ML Plot runs with python 2.7, 3.5 and 3.6!
 
 ## Contributing
 
@@ -19,7 +19,7 @@ Create a PR!
 
 # Plots
 
-Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.html).
+Work was inspired by [sklearn model evaluation](http://scikit-learn.org/stable/modules/model_evaluation.html).
 
 ## Classification
 
@@ -56,6 +56,8 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 ## Library Cleanup
 
 - Try in a notebook
+- Logging
+- Default matplotlib setup
 - Multi-model comparison
 - Report to generate multiple plots at once
 
@@ -67,3 +69,29 @@ Starting from [sklearn](http://scikit-learn.org/stable/modules/model_evaluation.
 python setup.py sdist bdist_wheel
 twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 ```
+
+## Design
+
+Basic interface thoughts
+```
+from mlplot.model_evaluation import ClassifierEvaluation
+from mlplot.model_evaluation import RegressorEvaluation
+from mlplot.model_evaluation import MultiClassifierEvaluation
+from mlplot.model_evaluation import MultiRegressorEvaluation
+from mlplot.model_evaluation import ModelComparison
+from mlplot.feature_evaluation import *
+
+eval = ClassifierEvaluation(y_true, y_pred)
+ax = eval.roc_curve()
+auc = eval.auc_score()
+f1_score = eval.f1_score()
+ax = eval.confusion_matrix(threshold=0.7)
+```
+
+- ModelEvaluation base class
+- ClassifierEvaluation class
+    - take in y_true, y_pred, class names, model_name
+- RegressorEvaluation class
+- MultiClassifierEvaluation class
+- ModelComparison
+    - takes in two evaluations of the same type
