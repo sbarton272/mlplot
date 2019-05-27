@@ -1,8 +1,10 @@
 """mlplot.model_evaluation module entrypoint"""
 
-from .classification import population_histogram, confusion_matrix, report_table
+import numpy as np
+
+from .classifier import ClassifierEvaluation
 
 # Set the visible
 __all__ = [
-
+    'ClassifierEvaluation',
 ]

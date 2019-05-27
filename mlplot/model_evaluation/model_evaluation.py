@@ -28,6 +28,6 @@ class ModelEvaluation():
         """Validate matplotlib axes or generate one if not provided"""
         if ax and not isinstance(ax, matplotlib.axes.Axes):
             raise InvalidArgument('You must pass a valid matplotlib.axes.Axes')
-        else:
+        elif not ax:
             _, ax = plt.subplots()
         return ax
