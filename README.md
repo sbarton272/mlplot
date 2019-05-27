@@ -11,7 +11,7 @@ Machine learning evaluation plots using [matplotlib](https://matplotlib.org/) an
 pip install mlplot
 ```
 
-ML Plot runs with python 2.7, 3.5 and 3.6!
+ML Plot runs with python 3.5 and 3.6!
 
 ## Contributing
 
