@@ -67,3 +67,24 @@ def test_roc_auc_score(clf_eval):
 
 def test_roc_curve(clf_eval, output_ax):
     clf_eval.roc_curve(ax=output_ax)
+
+def test_calibration(clf_eval, output_ax):
+    clf_eval.calibration(ax=output_ax)
+
+def test_precision_recall_regular(clf_eval, output_ax):
+    clf_eval.precision_recall(x_axis='recall', ax=output_ax)
+
+def test_precision_recall_threshold(clf_eval, output_ax):
+    clf_eval.precision_recall(x_axis='threshold', ax=output_ax)
+
+def test_population_histogram(clf_eval, output_ax):
+    clf_eval.population_histogram(ax=output_ax)
+
+def test_confusion_matrix(clf_eval, output_ax):
+    clf_eval.confusion_matrix(ax=output_ax)
+
+def test_confusion_matrix_with_threshold(clf_eval, output_ax):
+    clf_eval.confusion_matrix(threshold=0.1, ax=output_ax)
+
+def test_report_table(clf_eval, output_ax):
+    clf_eval.report_table(ax=output_ax)
