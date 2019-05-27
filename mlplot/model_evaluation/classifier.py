@@ -58,11 +58,11 @@ class ClassifierEvaluation(ModelEvaluation):
         false_pos_rate, true_pos_rate, _ = metrics.roc_curve(y_true=self.y_true, y_score=self.y_pred)
 
         # Create figure
-        label = f'{self.model_name} AUC({self.roc_auc_score():0.2})'
+        label = f'{self.model_name} AUC={self.roc_auc_score():0.2}'
         ax.plot(false_pos_rate, true_pos_rate, label=label)
 
         # Line for random
-        ax.plot([0, 1], [0, 1], color='gray', linestyle='dashed', label='random')
+        ax.plot([0, 1], [0, 1], color='gray', linestyle='dashed', label='random AUC=0.5')
 
         # Styling
         ax.set_title(f'{self.model_name} ROC Curve')
