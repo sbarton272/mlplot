@@ -39,7 +39,7 @@ class ClassifierEvaluation(ModelEvaluation):
             raise InvalidArgument('class_names must contain two class names (strings)')
 
     def __repr__(self):
-        return f'{self.model_name}(class_names=[{self.class_names[0]}, {self.class_names[1]}])'
+        return '{}(class_names=[{}, {}])'.format(self.model_name, self.class_names[0], self.class_names[1])
 
     def _binarize_pred(self, threshold=0.5):
         """Return the prediction as integers based on the threshold"""
@@ -62,14 +62,14 @@ class ClassifierEvaluation(ModelEvaluation):
         false_pos_rate, true_pos_rate, _ = metrics.roc_curve(y_true=self.y_true, y_score=self.y_pred)
 
         # Create figure
-        label = f'{self.model_name} AUC={self.roc_auc_score():0.2}'
+        label = '{0} AUC={1:0.2}'.format(self.model_name, self.roc_auc_score())
         ax.plot(false_pos_rate, true_pos_rate, label=label)
 
         # Line for random
         ax.plot([0, 1], [0, 1], color='gray', linestyle='dashed', label='random AUC=0.5')
 
         # Styling
-        ax.set_title(f'{self.model_name} ROC Curve')
+        ax.set_title('{} ROC Curve'.format(self.model_name))
         ax.set_xlabel('False Positive Rate')
         ax.set_ylabel('True Positive Rate')
         ax.legend(loc='lower right')
@@ -102,7 +102,7 @@ class ClassifierEvaluation(ModelEvaluation):
 
         # Plot fraction positive
         ax.plot(centers, fraction_positive)
-        ax.set_title(f'{self.model_name}: Calibration Brier Score {brier:0.3}')
+        ax.set_title('{0}: Calibration Brier Score {1:0.3}'.format(self.model_name, brier))
         ax.set_ylabel('Actual Probability')
         ax.set_xlabel('Predicted Probability')
         ax.plot([0, 1], [0, 1], color='gray', linestyle='dashed')

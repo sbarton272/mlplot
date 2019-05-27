@@ -11,7 +11,7 @@ Machine learning evaluation plots using [matplotlib](https://matplotlib.org/) an
 pip install mlplot
 ```
 
-ML Plot runs with python 3.5 and 3.6!
+ML Plot runs with python 3.5 and above! (using format strings and type annotations)
 
 ## Contributing
 
@@ -24,23 +24,26 @@ Work was inspired by [sklearn model evaluation](http://scikit-learn.org/stable/m
 ## Classification
 
 ### ROC with AUC number
-![ROC plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_roc.png)
+![ROC plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_roc_curve.png)
 
 ### Calibration
-![calibration plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_calibration.png)
+![calibration plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_calibration.png)
 
 ### Precision-Recall
-![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_precision_recall.png)
-![precision recall threshold plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_precision_recall_threshold.png)
+![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_precision_recall_regular.png)
+
+![precision recall threshold plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_precision_recall_threshold.png)
 
 ### Population Histograms
-![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_population_histogram.png)
+![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_population_histogram.png)
 
 ### Confusion Matrix
-![confusion matrix](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_confusion_matrix.png)
+![confusion matrix](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_confusion_matrix.png)
+
+![confusion matrix with threshold](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_confusion_matrix_with_threshold.png)
 
 ### Classification Report
-![classification report](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/test_report_table.png)
+![classification report](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_report_table.png)
 
 ## Regression
 

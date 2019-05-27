@@ -14,5 +14,5 @@ def output_ax(request):
     fig, ax = plt.subplots()
     yield ax
     fig.tight_layout()
-    filename = f'{request.function.__module__}.{request.function.__name__}.png'
+    filename = '{}.{}.png'.format(request.function.__module__, request.function.__name__)
     fig.savefig(str(PLOT_OUTPUT_DIR / filename))
