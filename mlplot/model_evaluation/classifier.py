@@ -69,7 +69,7 @@ class ClassifierEvaluation(ModelEvaluation):
         ax.plot([0, 1], [0, 1], color='gray', linestyle='dashed', label='random AUC=0.5')
 
         # Styling
-        ax.set_title('{} ROC Curve'.format(self.model_name))
+        ax.set_title('{}: ROC Curve'.format(self.model_name))
         ax.set_xlabel('False Positive Rate')
         ax.set_ylabel('True Positive Rate')
         ax.legend(loc='lower right')
@@ -157,7 +157,7 @@ class ClassifierEvaluation(ModelEvaluation):
 
         return ax
 
-    def population_histogram(self, ax=None):
+    def distribution(self, ax=None):
         """Plot histograms of the predictions grouped by class
 
         Parameters

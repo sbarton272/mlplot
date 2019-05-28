@@ -1,9 +1,8 @@
 [![CircleCI](https://circleci.com/gh/sbarton272/mlplot.svg?style=svg)](https://circleci.com/gh/sbarton272/mlplot)
-[![Documentation Status](https://readthedocs.org/projects/mlplot/badge/?version=latest)](https://mlplot.readthedocs.io/en/latest/?badge=latest)
 
 # mlplot
 
-Machine learning evaluation plots using [matplotlib](https://matplotlib.org/) and [sklearn](http://scikit-learn.org/). [Check out the docs.](https://mlplot.readthedocs.io/)
+Machine learning evaluation plots using [matplotlib](https://matplotlib.org/) and [sklearn](http://scikit-learn.org/).
 
 ## Install
 
@@ -24,25 +23,66 @@ Work was inspired by [sklearn model evaluation](http://scikit-learn.org/stable/m
 ## Classification
 
 ### ROC with AUC number
+
+```
+from mlplot.model_evaluation import ClassifierEvaluation
+eval = ClassifierEvaluation(y_true, y_pred, class_names, model_name)
+eval.roc_curve()
+```
+
 ![ROC plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_roc_curve.png)
 
 ### Calibration
+
+```
+from mlplot.model_evaluation import ClassifierEvaluation
+eval = ClassifierEvaluation(y_true, y_pred, class_names, model_name)
+eval.calibration()
+```
+
 ![calibration plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_calibration.png)
 
 ### Precision-Recall
+
+```
+from mlplot.model_evaluation import ClassifierEvaluation
+eval = ClassifierEvaluation(y_true, y_pred, class_names, model_name)
+eval.precision_recall(x_axis='recall')
+eval.precision_recall(x_axis='thresold')
+```
+
 ![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_precision_recall_regular.png)
 
 ![precision recall threshold plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_precision_recall_threshold.png)
 
-### Population Histograms
-![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_population_histogram.png)
+### Distribution
+
+```
+from mlplot.model_evaluation import ClassifierEvaluation
+eval = ClassifierEvaluation(y_true, y_pred, class_names, model_name)
+eval.distribution()
+```
+
+![distribution plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_distribution.png)
 
 ### Confusion Matrix
+
+```
+from mlplot.model_evaluation import ClassifierEvaluation
+eval = ClassifierEvaluation(y_true, y_pred, class_names, model_name)
+eval.confusion_matrix(threshold=0.5)
+```
+
 ![confusion matrix](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_confusion_matrix.png)
 
-![confusion matrix with threshold](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_confusion_matrix_with_threshold.png)
-
 ### Classification Report
+
+```
+from mlplot.model_evaluation import ClassifierEvaluation
+eval = ClassifierEvaluation(y_true, y_pred, class_names, model_name)
+eval.report_table()
+```
+
 ![classification report](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classifier.test_report_table.png)
 
 ## Regression

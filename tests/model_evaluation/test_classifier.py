@@ -77,13 +77,10 @@ def test_precision_recall_regular(clf_eval, output_ax):
 def test_precision_recall_threshold(clf_eval, output_ax):
     clf_eval.precision_recall(x_axis='threshold', ax=output_ax)
 
-def test_population_histogram(clf_eval, output_ax):
-    clf_eval.population_histogram(ax=output_ax)
+def test_distribution(clf_eval, output_ax):
+    clf_eval.distribution(ax=output_ax)
 
 def test_confusion_matrix(clf_eval, output_ax):
-    clf_eval.confusion_matrix(ax=output_ax)
-
-def test_confusion_matrix_with_threshold(clf_eval, output_ax):
     clf_eval.confusion_matrix(threshold=0.1, ax=output_ax)
 
 def test_report_table(clf_eval, output_ax):
