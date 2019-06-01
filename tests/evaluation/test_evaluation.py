@@ -2,7 +2,7 @@
 import pytest
 
 from .. import np
-from mlplot.model_evaluation.model_evaluation import ModelEvaluation
+from mlplot.evaluation.evaluation import ModelEvaluation
 from mlplot.errors import InvalidArgument
 
 def test_inputs():

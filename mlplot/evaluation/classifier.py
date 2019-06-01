@@ -2,7 +2,7 @@
 import sklearn.metrics as metrics
 
 from . import np, plt
-from .model_evaluation import ModelEvaluation
+from .evaluation import ModelEvaluation
 from ..errors import InvalidArgument
 
 class ClassifierEvaluation(ModelEvaluation):

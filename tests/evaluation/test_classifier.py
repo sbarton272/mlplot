@@ -2,7 +2,7 @@
 import pytest
 
 from .. import np, output_ax
-from mlplot.model_evaluation import ClassifierEvaluation
+from mlplot.evaluation import ClassifierEvaluation
 from mlplot.errors import InvalidArgument
 
 @pytest.fixture
