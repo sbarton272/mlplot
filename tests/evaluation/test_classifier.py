@@ -52,6 +52,15 @@ def test_inputs():
         ClassifierEvaluation(
             y_true=[0, 1, 1],
             y_pred=[0.2, 0.3, 0.1],
+            class_names=[1, 2],
+            model_name='foo',
+        )
+    assert 'class_names' in str(excpt.value)
+
+    with pytest.raises(InvalidArgument) as excpt:
+        ClassifierEvaluation(
+            y_true=[0, 1, 1],
+            y_pred=[0.2, 0.3, 0.1],
             class_names=['a'],
             model_name='foo',
         )
@@ -81,7 +90,7 @@ def test_distribution(clf_eval, output_ax):
     clf_eval.distribution(ax=output_ax)
 
 def test_confusion_matrix(clf_eval, output_ax):
-    clf_eval.confusion_matrix(threshold=0.1, ax=output_ax)
+    clf_eval.confusion_matrix(threshold=0.4, ax=output_ax)
 
 def test_report_table(clf_eval, output_ax):
     clf_eval.report_table(ax=output_ax)

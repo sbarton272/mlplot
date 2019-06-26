@@ -145,3 +145,16 @@ ax = eval.confusion_matrix(threshold=0.7)
 - Linting
 - Type checking?
 - Security checks?
+- Plot decorator
+
+- Confusion
+    - True class
+    - Predicted class
+    - Threshold
+    - title Model:
+- Distribution
+    - count --> observations
+    - y_pred --> predictions
+    - legend title --> classes
+    - title model:
+- AUC variability plot?
