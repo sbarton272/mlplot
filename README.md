@@ -138,3 +138,10 @@ ax = eval.confusion_matrix(threshold=0.7)
 - MultiClassifierEvaluation class
 - ModelComparison
     - takes in two evaluations of the same type
+
+# TODO
+
+- Formatting
+- Linting
+- Type checking?
+- Security checks?

@@ -62,7 +62,7 @@ class ClassifierEvaluation(ModelEvaluation):
         false_pos_rate, true_pos_rate, _ = metrics.roc_curve(y_true=self.y_true, y_score=self.y_pred)
 
         # Create figure
-        label = '{0} AUC={1:0.2}'.format(self.model_name, self.roc_auc_score())
+        label = '{0}: AUC={1:0.2}'.format(self.model_name, self.roc_auc_score())
         ax.plot(false_pos_rate, true_pos_rate, label=label)
 
         # Line for random
@@ -101,10 +101,11 @@ class ClassifierEvaluation(ModelEvaluation):
         brier = metrics.brier_score_loss(y_true=self.y_true, y_prob=self.y_pred)
 
         # Plot fraction positive
-        ax.plot(centers, fraction_positive)
-        ax.set_title('{0}: Calibration Brier Score {1:0.3}'.format(self.model_name, brier))
+        label = 'Brier Score={0:0.3}'.format(brier)
+        ax.plot(centers, fraction_positive, label=label)
+        ax.set_title('{}: Calibration'.format(self.model_name))
         ax.set_ylabel('Actual Probability')
-        ax.set_xlabel('Predicted Probability')
+        ax.set_xlabel('Fraction of Positives')
         ax.plot([0, 1], [0, 1], color='gray', linestyle='dashed')
 
         # Plot counts
