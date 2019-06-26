@@ -14,6 +14,7 @@ def reg_eval():
     model_eval = RegressionEvaluation(
         y_true=y_true,
         y_pred=y_pred,
+        value_name='variable',
         model_name='foo',
     )
     return model_eval
@@ -23,11 +24,11 @@ def test_repr(reg_eval):
     assert str(reg_eval) == 'RegressionEvaluation(model_name=foo)'
     assert repr(reg_eval) == 'RegressionEvaluation(model_name=foo)'
 
-def test_scatter(reg_eval):
-    pass
+def test_scatter(reg_eval, output_ax):
+    reg_eval.scatter(ax=output_ax)
 
-def test_residuals(reg_eval):
-    pass
+def test_residuals(reg_eval, output_ax):
+    reg_eval.residuals(ax=output_ax)
 
-def test_residuals_histogram(reg_eval):
-    pass
+def test_residuals_histogram(reg_eval, output_ax):
+    reg_eval.residuals_histogram(ax=output_ax)
