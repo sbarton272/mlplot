@@ -15,6 +15,10 @@ class ModelEvaluation():
         if self.y_true.shape != self.y_pred.shape:
             raise InvalidArgument('You must have y_true and y_pred of the same size')
 
+        # No nan values are allowed
+        if np.isnan(self.y_true).any() or np.isnan(self.y_pred).any():
+            raise InvalidArgument('No nan values allowed in y_true or y_pred')
+
         self.model_name = model_name
 
     def _to_vector(self, collection, collection_name):

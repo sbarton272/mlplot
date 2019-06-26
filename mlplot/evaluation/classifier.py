@@ -11,7 +11,7 @@ class ClassifierEvaluation(ModelEvaluation):
     Parameters
     ----------
     y_true : list or 1d numpy array with elements 0 or 1
-             A collection of the true labels which can be any two values
+             A collection of the true labels
     y_pred : list or 1d numpy array with elements 0.0 to 1.0
              A collection of the prediction probabilities of class value 1.
     class_names : list with two string elements
@@ -39,7 +39,7 @@ class ClassifierEvaluation(ModelEvaluation):
             raise InvalidArgument('class_names must contain two class names (strings)')
 
     def __repr__(self):
-        return '{}(class_names=[{}, {}])'.format(self.model_name, self.class_names[0], self.class_names[1])
+        return 'ClassifierEvaluation(model_name={}, class_names=[{}, {}])'.format(self.model_name, self.class_names[0], self.class_names[1])
 
     def _binarize_pred(self, threshold=0.5):
         """Return the prediction as integers based on the threshold"""
