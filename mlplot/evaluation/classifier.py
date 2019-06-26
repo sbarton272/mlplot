@@ -1,7 +1,7 @@
 """Evaluation class for 2-class classifier evaluation"""
 import sklearn.metrics as metrics
 
-from . import np, plt
+from . import np, sp, plt
 from .evaluation import ModelEvaluation
 from ..errors import InvalidArgument
 
@@ -133,22 +133,25 @@ class ClassifierEvaluation(ModelEvaluation):
 
         # Plot fraction positive
         label = '{0}|Brier Score={1:0.3}'.format(self.model_name, brier)
-        ax.plot(centers, fraction_positive, label=label)
-        ax.set_title('Calibration for {}'.format(self.model_name))
-        ax.set_ylabel('Predicted Probability')
-        ax.set_xlabel('Fraction of Positives')
-        ax.plot([0, 1], [0, 1], color='gray', linestyle='dashed', label='perfect|Brier Score=0.0')
-        ax.legend(loc='upper left')
+        ax.plot(centers, fraction_positive - centers, label=label)
 
-        # TODO
-        # Plot counts
-        ax_r = ax.twinx()
-        num_bins = len(counts)
-        ax_r.bar(centers, counts, alpha=0.5, color='black', fill=True, width=0.8/num_bins)
-        ylim = ax_r.get_ylim()
-        ax_r.set_ylim(ylim[0], ylim[1]*10)
-        ax_r.set_yticks([])
-        ax_r.set_yticklabels([])
+        # 95% Confidence interval
+        # https://en.wikipedia.org/wiki/Binomial_proportion_confidence_interval
+        z = sp.stats.norm.ppf(0.975)
+        ci_range = z * np.sqrt(fraction_positive * (1 - fraction_positive) / counts)
+        lower_range = fraction_positive - ci_range
+        upper_range = fraction_positive + ci_range
+        ax.fill_between(centers, lower_range - centers, upper_range - centers, alpha=0.25)
+
+        # Plot 0 line
+        ax.plot([0, 1], [0, 0], color='gray', linestyle='dashed', alpha=0.25, label='perfect|Brier Score=0.0')
+
+        # Format plot
+        ax.set_ylim(-0.5, 0.5)
+        ax.set_title('Calibration for {}'.format(self.model_name))
+        ax.set_ylabel('Bias (Faction of Positive - Binned Prediction)')
+        ax.set_xlabel('Binned Predictions')
+        ax.legend(loc='upper left')
 
         return ax
 

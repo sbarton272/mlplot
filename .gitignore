@@ -106,3 +106,6 @@ venv.bak/
 # vscode
 *.code-workspace
 *.vscode
+
+# max os stupidity
+.DS_Store
