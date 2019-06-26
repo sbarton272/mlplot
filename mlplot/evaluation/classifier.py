@@ -258,8 +258,8 @@ class ClassifierEvaluation(ModelEvaluation):
             ax.text(x, y, text, fontsize='large', horizontalalignment='center', color=text_color)
 
         ax.set_ylabel('Actual Class')
-        ax.set_xlabel('Predicted Class')
-        ax.set_title('Confusion Matrix for {} | Threshold={}'.format(self.model_name, threshold))
+        ax.set_xlabel('Predicted Class | Threshold={}'.format(threshold))
+        ax.set_title('Confusion Matrix for {}'.format(self.model_name))
 
         return ax
 
