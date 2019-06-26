@@ -21,50 +21,50 @@ def clf_eval():
 
 def test_inputs():
     """Check init argument validation"""
-    with pytest.raises(InvalidArgument) as excpt:
+    with pytest.raises(InvalidArgument) as exception:
         ClassificationEvaluation(
             y_true=[0, 1, 2],
             y_pred=[0.2, 0.3, 0.1],
             class_names=['a', 'b'],
             model_name='foo',
         )
-    assert 'y_true' in str(excpt.value)
+    assert 'y_true' in str(exception.value)
 
-    with pytest.raises(InvalidArgument) as excpt:
+    with pytest.raises(InvalidArgument) as exception:
         ClassificationEvaluation(
             y_true=[0, 2],
             y_pred=[0.2, 0.3, 0.1],
             class_names=['a', 'b'],
             model_name='foo',
         )
-    assert 'y_true' in str(excpt.value)
+    assert 'y_true' in str(exception.value)
 
-    with pytest.raises(InvalidArgument) as excpt:
+    with pytest.raises(InvalidArgument) as exception:
         ClassificationEvaluation(
             y_true=[0, 1, 1],
             y_pred=[-0.2, 0.3, 1.1],
             class_names=['a', 'b'],
             model_name='foo',
         )
-    assert 'y_pred' in str(excpt.value)
+    assert 'y_pred' in str(exception.value)
 
-    with pytest.raises(InvalidArgument) as excpt:
+    with pytest.raises(InvalidArgument) as exception:
         ClassificationEvaluation(
             y_true=[0, 1, 1],
             y_pred=[0.2, 0.3, 0.1],
             class_names=[1, 2],
             model_name='foo',
         )
-    assert 'class_names' in str(excpt.value)
+    assert 'class_names' in str(exception.value)
 
-    with pytest.raises(InvalidArgument) as excpt:
+    with pytest.raises(InvalidArgument) as exception:
         ClassificationEvaluation(
             y_true=[0, 1, 1],
             y_pred=[0.2, 0.3, 0.1],
             class_names=['a'],
             model_name='foo',
         )
-    assert 'class_names' in str(excpt.value)
+    assert 'class_names' in str(exception.value)
 
 def test_repr(clf_eval):
     """Check the string representation"""

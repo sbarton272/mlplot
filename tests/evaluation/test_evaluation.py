@@ -22,7 +22,7 @@ def test_inputs():
 
     model_eval = ModelEvaluation(
         y_true=np.ones(shape=(10, 10)),
-        y_pred=np.ones(shape=(10, 10)),
+        y_pred=np.random.normal(shape=(10, 10)),
         model_name='zoo',
     )
 
@@ -30,5 +30,14 @@ def test_inputs():
         model_eval = ModelEvaluation(
             y_true=np.ones(shape=(10, 1)),
             y_pred=np.ones(shape=(10, 10)),
+            model_name='boo',
+        )
+
+    with pytest.raises(InvalidArgument):
+        y_pred = np.random.normal(shape=(10, 10))
+        y_pred[0, 0] = np.nan
+        model_eval = ModelEvaluation(
+            y_true=np.ones(shape=(10, 1)),
+            y_pred=y_pred,
             model_name='boo',
         )

@@ -96,6 +96,10 @@ eval.report_table()
 - Scatter plot
 - Histogram of regressor
 
+## Forecasts
+
+- TBD
+
 ## Library Cleanup
 
 - Try in a notebook

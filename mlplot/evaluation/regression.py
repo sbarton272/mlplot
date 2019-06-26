@@ -27,21 +27,28 @@ class RegressionEvaluation(ModelEvaluation):
     ###################################
     # Scores
 
+    # R2
+    # Mean residual
+    # Residual bias?
+
     ###################################
     # Plots
 
     def scatter(self, ax=None):
-        """Plot a reciever operating curve
+        """Plot y_true and y_pred together on a scatter plot
 
         Parameters
         ----------
         ax : matplotlib.axes.Axes, optional
         """
         ax = self._validate_axes(ax)
+
+
+
         return ax
 
     def residuals(self, ax=None):
-        """Plot a reciever operating curve
+        """Plot the residuals by y_true
 
         Parameters
         ----------
@@ -51,17 +58,7 @@ class RegressionEvaluation(ModelEvaluation):
         return ax
 
     def residuals_histogram(self, ax=None):
-        """Plot a reciever operating curve
-
-        Parameters
-        ----------
-        ax : matplotlib.axes.Axes, optional
-        """
-        ax = self._validate_axes(ax)
-        return ax
-
-    def regressor_histogram(self, ax=None):
-        """Plot a reciever operating curve
+        """Plot a histogram of the residuals
 
         Parameters
         ----------
