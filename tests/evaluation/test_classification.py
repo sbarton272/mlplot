@@ -1,17 +1,17 @@
-"""Test for mlplot model evaluation classifier class"""
+"""Test for mlplot model evaluation classification class"""
 import pytest
 
 from .. import np, output_ax
-from mlplot.evaluation import ClassifierEvaluation
+from mlplot.evaluation import ClassificationEvaluation
 from mlplot.errors import InvalidArgument
 
 @pytest.fixture
 def clf_eval():
-    """Setup an example ClassifierEvaluation"""
+    """Setup an example ClassificationEvaluation"""
     y_true = np.random.randint(2, size=10000)
     y_pred = np.clip(np.random.normal(0.25, 0.3, size=y_true.shape) + y_true * 0.5, 0, 1)
 
-    model_eval = ClassifierEvaluation(
+    model_eval = ClassificationEvaluation(
         y_true=y_true,
         y_pred=y_pred,
         class_names=['a', 'b'],
@@ -22,7 +22,7 @@ def clf_eval():
 def test_inputs():
     """Check init argument validation"""
     with pytest.raises(InvalidArgument) as excpt:
-        ClassifierEvaluation(
+        ClassificationEvaluation(
             y_true=[0, 1, 2],
             y_pred=[0.2, 0.3, 0.1],
             class_names=['a', 'b'],
@@ -31,7 +31,7 @@ def test_inputs():
     assert 'y_true' in str(excpt.value)
 
     with pytest.raises(InvalidArgument) as excpt:
-        ClassifierEvaluation(
+        ClassificationEvaluation(
             y_true=[0, 2],
             y_pred=[0.2, 0.3, 0.1],
             class_names=['a', 'b'],
@@ -40,7 +40,7 @@ def test_inputs():
     assert 'y_true' in str(excpt.value)
 
     with pytest.raises(InvalidArgument) as excpt:
-        ClassifierEvaluation(
+        ClassificationEvaluation(
             y_true=[0, 1, 1],
             y_pred=[-0.2, 0.3, 1.1],
             class_names=['a', 'b'],
@@ -49,7 +49,7 @@ def test_inputs():
     assert 'y_pred' in str(excpt.value)
 
     with pytest.raises(InvalidArgument) as excpt:
-        ClassifierEvaluation(
+        ClassificationEvaluation(
             y_true=[0, 1, 1],
             y_pred=[0.2, 0.3, 0.1],
             class_names=[1, 2],
@@ -58,7 +58,7 @@ def test_inputs():
     assert 'class_names' in str(excpt.value)
 
     with pytest.raises(InvalidArgument) as excpt:
-        ClassifierEvaluation(
+        ClassificationEvaluation(
             y_true=[0, 1, 1],
             y_pred=[0.2, 0.3, 0.1],
             class_names=['a'],
@@ -68,8 +68,8 @@ def test_inputs():
 
 def test_repr(clf_eval):
     """Check the string representation"""
-    assert str(clf_eval) == 'foo(class_names=[a, b])'
-    assert repr(clf_eval) == 'foo(class_names=[a, b])'
+    assert str(clf_eval) == 'ClassificationEvaluation(model_name=foo, class_names=[a, b])'
+    assert repr(clf_eval) == 'ClassificationEvaluation(model_name=foo, class_names=[a, b])'
 
 def test_roc_auc_score(clf_eval):
     assert round(clf_eval.roc_auc_score(), 2) == 0.88

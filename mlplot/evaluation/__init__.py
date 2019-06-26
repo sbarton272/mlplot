@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy as sp
 
-from .classifier import ClassifierEvaluation
+from .classification import ClassificationEvaluation
 
 # Set the visible
 __all__ = [
-    'ClassifierEvaluation',
+    'ClassificationEvaluation',
 ]

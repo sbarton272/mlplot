@@ -1,12 +1,12 @@
-"""Evaluation class for 2-class classifier evaluation"""
+"""Evaluation class for 2-class classification evaluation"""
 import sklearn.metrics as metrics
 
 from . import np, sp, plt
 from .evaluation import ModelEvaluation
 from ..errors import InvalidArgument
 
-class ClassifierEvaluation(ModelEvaluation):
-    """2-class classifier model evaluation
+class ClassificationEvaluation(ModelEvaluation):
+    """2-class classification model evaluation
 
     Parameters
     ----------
@@ -39,7 +39,7 @@ class ClassifierEvaluation(ModelEvaluation):
             raise InvalidArgument('class_names must contain two class names (strings)')
 
     def __repr__(self):
-        return 'ClassifierEvaluation(model_name={}, class_names=[{}, {}])'.format(self.model_name, self.class_names[0], self.class_names[1])
+        return 'ClassificationEvaluation(model_name={}, class_names=[{}, {}])'.format(self.model_name, self.class_names[0], self.class_names[1])
 
     def _binarize_pred(self, threshold=0.5):
         """Return the prediction as integers based on the threshold"""
