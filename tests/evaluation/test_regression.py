@@ -33,6 +33,9 @@ def test_mae_score(reg_eval):
 def test_r2_score(reg_eval):
     assert round(reg_eval.r2_score(), 2) == 0.85
 
+def test_explained_variance_score(reg_eval):
+    assert round(reg_eval.explained_variance_score(), 2) == 0.91
+
 def test_scatter(reg_eval, output_ax):
     reg_eval.scatter(ax=output_ax)
 

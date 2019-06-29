@@ -46,6 +46,10 @@ class RegressionEvaluation(ModelEvaluation):
         denominator = ((self.y_true - self.y_true.mean()) ** 2).sum()
         return 1 - (numerator / denominator)
 
+    def explained_variance_score(self):
+        """Return the explained variance score"""
+        return 1 - np.var(self.y_true - self.y_pred) / np.var(self.y_true)
+
     ###################################
     # Plots
 
@@ -128,6 +132,7 @@ class RegressionEvaluation(ModelEvaluation):
             ('MSE', self.mse_score()),
             ('MAE', self.mae_score()),
             ('R2', self.r2_score()),
+            ('Explained Var', self.explained_variance_score()),
         ])
 
         self._format_table(table=tbl, ax=ax)
