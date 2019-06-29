@@ -30,9 +30,21 @@ class RegressionEvaluation(ModelEvaluation):
     ###################################
     # Scores
 
-    # R2
-    # Mean residual
-    # Residual bias?
+    def mse_score(self):
+        """Return the mean square error"""
+        error = self.y_true - self.y_pred
+        return np.mean(error ** 2)
+
+    def mae_score(self):
+        """Return the mean absolute error"""
+        error = self.y_true - self.y_pred
+        return np.mean(np.abs(error))
+
+    def r2_score(self):
+        """Return the R2 score"""
+        numerator = ((self.y_true - self.y_pred) ** 2).sum()
+        denominator = ((self.y_true - self.y_true.mean()) ** 2).sum()
+        return 1 - (numerator / denominator)
 
     ###################################
     # Plots
@@ -88,5 +100,37 @@ class RegressionEvaluation(ModelEvaluation):
         ax.set_title('Residuals Histogram for {}'.format(self.model_name))
         ax.set_xlabel('Residual {} (Prediction - Actual)'.format(self.value_name))
         ax.set_ylabel('Occurances')
+
+        return ax
+
+    def report_table(self, ax=None):
+        """Generate a report table containing key stats about the dataset
+
+        Parameters
+        ----------
+        ax : matplotlib.axes.Axes, optional
+        """
+        ax = self._validate_axes(ax)
+
+        tbl = []
+
+        # Simple stats
+        tbl.extend([
+            ('Total observations', len(self.y_true)),
+            ('Mean {}'.format(self.value_name), np.mean(self.y_true)),
+            ('25th percentile {}'.format(self.value_name), np.percentile(self.y_true, 25)),
+            ('50th percentile {}'.format(self.value_name), np.percentile(self.y_true, 50)),
+            ('75th percentile {}'.format(self.value_name), np.percentile(self.y_true, 75)),
+        ])
+
+        # Scoring
+        tbl.extend([
+            ('MSE', self.mse_score()),
+            ('MAE', self.mae_score()),
+            ('R2', self.r2_score()),
+        ])
+
+        self._format_table(table=tbl, ax=ax)
+        ax.set_title('Classification Report for {}'.format(self.model_name))
 
         return ax

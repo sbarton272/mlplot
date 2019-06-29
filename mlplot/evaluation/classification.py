@@ -289,35 +289,7 @@ class ClassificationEvaluation(ModelEvaluation):
             ('Avg Precision', self.average_precision_score()),
         ])
 
-        # Format the rows
-        rows = []
-        for lbl, val in tbl:
-            if isinstance(val, int):
-                formatted = [lbl, val]
-            else:
-                formatted = [lbl, '{:.2f}'.format(val)]
-            rows.append(formatted)
-
-        ax_tbl = ax.table(cellText=rows, loc='center')
-        ax.set_xticks([])
-        ax.set_yticks([])
-
-        # Remove border
-        [line.set_linewidth(0) for line in ax.spines.values()]
-
-        # Values left justified
-        cells = ax_tbl.properties()['celld']
-        for row in range(len(tbl)):
-            cells[row, 1]._loc = 'left'
-
-        # Remove table borders
-        for cell in cells.values():
-            cell.set_linewidth(0)
-
-        # Make cells larger
-        for cell in cells.values():
-            cell.set_height(0.1)
-
+        self._format_table(table=tbl, ax=ax)
         ax.set_title('Classification Report for {}'.format(self.model_name))
 
         return ax

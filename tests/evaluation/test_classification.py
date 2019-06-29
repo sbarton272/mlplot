@@ -74,6 +74,15 @@ def test_repr(clf_eval):
 def test_roc_auc_score(clf_eval):
     assert round(clf_eval.roc_auc_score(), 2) == 0.88
 
+def test_average_precision_score(clf_eval):
+    assert round(clf_eval.average_precision_score(), 2) == 0.88
+
+def test_f1_score(clf_eval):
+    assert round(clf_eval.f1_score(), 2) == 0.88
+
+def test_accuracy_score(clf_eval):
+    assert round(clf_eval.accuracy_score(), 2) == 0.88
+
 def test_roc_curve(clf_eval, output_ax):
     clf_eval.roc_curve(ax=output_ax)
 

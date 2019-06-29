@@ -24,6 +24,15 @@ def test_repr(reg_eval):
     assert str(reg_eval) == 'RegressionEvaluation(model_name=foo)'
     assert repr(reg_eval) == 'RegressionEvaluation(model_name=foo)'
 
+def test_mse_score(reg_eval):
+    assert reg_eval.mse_score() == 1
+
+def test_mse_score(reg_eval):
+    assert reg_eval.mae_score() == 1
+
+def test_r2_score(reg_eval):
+    assert reg_eval.mae_score() == 1
+
 def test_scatter(reg_eval, output_ax):
     reg_eval.scatter(ax=output_ax)
 
@@ -32,3 +41,6 @@ def test_residuals(reg_eval, output_ax):
 
 def test_residuals_histogram(reg_eval, output_ax):
     reg_eval.residuals_histogram(ax=output_ax)
+
+def test_report_table(reg_eval, output_ax):
+    reg_eval.report_table(ax=output_ax)
