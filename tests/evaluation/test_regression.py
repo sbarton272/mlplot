@@ -25,13 +25,13 @@ def test_repr(reg_eval):
     assert repr(reg_eval) == 'RegressionEvaluation(model_name=foo)'
 
 def test_mse_score(reg_eval):
-    assert reg_eval.mse_score() == 1
+    assert round(reg_eval.mse_score(), 2) == 0.15
 
-def test_mse_score(reg_eval):
-    assert reg_eval.mae_score() == 1
+def test_mae_score(reg_eval):
+    assert round(reg_eval.mae_score(), 2) == 0.32
 
 def test_r2_score(reg_eval):
-    assert reg_eval.mae_score() == 1
+    assert round(reg_eval.r2_score(), 2) == 0.85
 
 def test_scatter(reg_eval, output_ax):
     reg_eval.scatter(ax=output_ax)

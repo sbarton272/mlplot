@@ -40,7 +40,7 @@ class ModelEvaluation():
         """Matplotlib tables don't behave well by default"""
         # Format the rows
         rows = []
-        for lbl, val in tbl:
+        for lbl, val in table:
             if isinstance(val, int):
                 formatted = [lbl, val]
             else:
@@ -56,7 +56,7 @@ class ModelEvaluation():
 
         # Values left justified
         cells = ax_tbl.properties()['celld']
-        for row in range(len(tbl)):
+        for row in range(len(table)):
             cells[row, 1]._loc = 'left'
 
         # Remove table borders
