@@ -4,16 +4,22 @@ import matplotlib.pyplot as plt
 
 from ..errors import InvalidArgument
 from .classification import ClassificationEvaluation
+from .decorators import plot
 
 class ClassificationComparison():
-    """TODO"""
+    """Compare multiple classification model evaluations"""
 
     def __init__(self, evaluations):
         self._evaluations = evaluations
 
+    @plot
     def roc_curve(self, ax):
-        ax = self._validate_axes(ax)
+        """Plot a reciever operating curve
 
+        Parameters
+        ----------
+        ax : matplotlib.axes.Axes, optional
+        """
         # Plot each ROC curve
         for evl in self._evaluations:
             evl.roc_curve(ax=ax)
@@ -25,8 +31,6 @@ class ClassificationComparison():
         # Format the plot
         ax.set_title('ROC Curve')
         ax.legend()  # Recompute legend
-
-        return ax
 
     # TODO decorator
     def _validate_axes(self, ax):

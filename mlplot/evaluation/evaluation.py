@@ -28,14 +28,6 @@ class ModelEvaluation():
         except:
             raise InvalidArgument('Cannot convert {} to 1D numpy array'.format(collection_name))
 
-    def _validate_axes(self, ax):
-        """Validate matplotlib axes or generate one if not provided"""
-        if ax and not isinstance(ax, matplotlib.axes.Axes):
-            raise InvalidArgument('You must pass a valid matplotlib.axes.Axes')
-        elif not ax:
-            _, ax = plt.subplots()
-        return ax
-
     def _format_table(self, table, ax):
         """Matplotlib tables don't behave well by default"""
         # Format the rows
@@ -47,6 +39,7 @@ class ModelEvaluation():
                 formatted = [lbl, '{:.2f}'.format(val)]
             rows.append(formatted)
 
+        # Create the table
         ax_tbl = ax.table(cellText=rows, loc='center')
         ax.set_xticks([])
         ax.set_yticks([])

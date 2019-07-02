@@ -2,8 +2,10 @@
 import sklearn.metrics as metrics
 
 from . import np, sp, plt
+from .decorators import plot
 from .evaluation import ModelEvaluation
 from ..errors import InvalidArgument
+
 
 class ClassificationEvaluation(ModelEvaluation):
     """2-class classification model evaluation
@@ -81,6 +83,7 @@ class ClassificationEvaluation(ModelEvaluation):
     ###################################
     # Plots
 
+    @plot
     def roc_curve(self, ax=None):
         """Plot a reciever operating curve
 
@@ -88,8 +91,6 @@ class ClassificationEvaluation(ModelEvaluation):
         ----------
         ax : matplotlib.axes.Axes, optional
         """
-        ax = self._validate_axes(ax)
-
         false_pos_rate, true_pos_rate, _ = metrics.roc_curve(y_true=self.y_true, y_score=self.y_pred)
 
         # Create figure
@@ -105,8 +106,7 @@ class ClassificationEvaluation(ModelEvaluation):
         ax.set_ylabel('True Positive Rate')
         ax.legend(loc='lower right')
 
-        return ax
-
+    @plot
     def calibration(self, n_bins='auto', ax=None):
         """Plot a calibration plot
 
@@ -120,8 +120,6 @@ class ClassificationEvaluation(ModelEvaluation):
                 The number of bins to group y_pred. See `numpy.histogram <https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.histogram.html>`_
         ax : matplotlib.axes.Axes, optional
         """
-        ax = self._validate_axes(ax)
-
         # Calculate bin counts
         counts, bin_edges = np.histogram(self.y_pred, bins=n_bins, range=(0, 1))
         bin_labels = np.digitize(self.y_pred, bin_edges[:-1]) - 1
@@ -153,8 +151,7 @@ class ClassificationEvaluation(ModelEvaluation):
         ax.set_xlabel('Binned Predictions')
         ax.legend(loc='upper left')
 
-        return ax
-
+    @plot
     def precision_recall(self, x_axis='recall', ax=None):
         """Plot the precision-recall curve
 
@@ -167,8 +164,6 @@ class ClassificationEvaluation(ModelEvaluation):
                 the other precision and recall vs threshold.
         ax : matplotlib.axes.Axes, optional
         """
-        ax = self._validate_axes(ax)
-
         precision, recall, threshold = metrics.precision_recall_curve(y_true=self.y_true, probas_pred=self.y_pred)
         average_precision = self.average_precision_score()
 
@@ -195,8 +190,7 @@ class ClassificationEvaluation(ModelEvaluation):
         ax.set_title('Precision Recall for {}'.format(self.model_name))
         ax.legend()
 
-        return ax
-
+    @plot
     def distribution(self, ax=None):
         """Plot histograms of the predictions grouped by class
 
@@ -204,8 +198,6 @@ class ClassificationEvaluation(ModelEvaluation):
         ----------
         ax : matplotlib.axes.Axes, optional
         """
-        ax = self._validate_axes(ax)
-
         alpha = 0.5  # Bars should be fairly transparent
         cond = self.y_true.astype(bool)
         label = '{}|class={}'.format(self.model_name, self.class_names[0])
@@ -221,8 +213,7 @@ class ClassificationEvaluation(ModelEvaluation):
         ax.set_ylabel('Occurrences')
         ax.set_xlabel('Prediction')
 
-        return ax
-
+    @plot
     def confusion_matrix(self, threshold=0.5, ax=None):
         """Plot a heatmap for the confusion matrix
 
@@ -234,8 +225,6 @@ class ClassificationEvaluation(ModelEvaluation):
                     Defines the cutoff to be considered in the asserted class
         ax : matplotlib.axes.Axes, optional
         """
-        ax = self._validate_axes(ax)
-
         binarized = self._binarize_pred(threshold=threshold)
         mat = metrics.confusion_matrix(self.y_true, binarized)
 
@@ -261,8 +250,7 @@ class ClassificationEvaluation(ModelEvaluation):
         ax.set_xlabel('Predicted Class | Threshold={}'.format(threshold))
         ax.set_title('Confusion Matrix for {}'.format(self.model_name))
 
-        return ax
-
+    @plot
     def report_table(self, ax=None):
         """Generate a report table containing key stats about the dataset
 
@@ -270,8 +258,6 @@ class ClassificationEvaluation(ModelEvaluation):
         ----------
         ax : matplotlib.axes.Axes, optional
         """
-        ax = self._validate_axes(ax)
-
         tbl = []
 
         # Sample counts
@@ -291,5 +277,3 @@ class ClassificationEvaluation(ModelEvaluation):
 
         self._format_table(table=tbl, ax=ax)
         ax.set_title('Classification Report for {}'.format(self.model_name))
-
-        return ax

@@ -2,6 +2,7 @@
 import sklearn.metrics as metrics
 
 from . import np, sp, plt
+from .decorators import plot
 from .evaluation import ModelEvaluation
 from ..errors import InvalidArgument
 
@@ -53,6 +54,7 @@ class RegressionEvaluation(ModelEvaluation):
     ###################################
     # Plots
 
+    @plot
     def scatter(self, ax=None):
         """Plot y_true and y_pred together on a scatter plot
 
@@ -60,8 +62,6 @@ class RegressionEvaluation(ModelEvaluation):
         ----------
         ax : matplotlib.axes.Axes, optional
         """
-        ax = self._validate_axes(ax)
-
         ax.scatter(self.y_true, self.y_pred)
 
         # Format plot
@@ -69,8 +69,7 @@ class RegressionEvaluation(ModelEvaluation):
         ax.set_xlabel('Actual {}'.format(self.value_name))
         ax.set_ylabel('Predicted {}'.format(self.value_name))
 
-        return ax
-
+    @plot
     def residuals(self, ax=None):
         """Plot the residuals by y_true
 
@@ -78,8 +77,6 @@ class RegressionEvaluation(ModelEvaluation):
         ----------
         ax : matplotlib.axes.Axes, optional
         """
-        ax = self._validate_axes(ax)
-
         ax.scatter(self.y_true, self.y_pred - self.y_true)
 
         # Format plot
@@ -87,8 +84,7 @@ class RegressionEvaluation(ModelEvaluation):
         ax.set_xlabel('Actual {}'.format(self.value_name))
         ax.set_ylabel('Residual {} (Prediction - Actual)'.format(self.value_name))
 
-        return ax
-
+    @plot
     def residuals_histogram(self, ax=None):
         """Plot a histogram of the residuals
 
@@ -96,8 +92,6 @@ class RegressionEvaluation(ModelEvaluation):
         ----------
         ax : matplotlib.axes.Axes, optional
         """
-        ax = self._validate_axes(ax)
-
         ax.hist(self.y_pred - self.y_true)
 
         # Format plot
@@ -105,8 +99,7 @@ class RegressionEvaluation(ModelEvaluation):
         ax.set_xlabel('Residual {} (Prediction - Actual)'.format(self.value_name))
         ax.set_ylabel('Occurances')
 
-        return ax
-
+    @plot
     def report_table(self, ax=None):
         """Generate a report table containing key stats about the dataset
 
@@ -114,8 +107,6 @@ class RegressionEvaluation(ModelEvaluation):
         ----------
         ax : matplotlib.axes.Axes, optional
         """
-        ax = self._validate_axes(ax)
-
         tbl = []
 
         # Simple stats
@@ -137,5 +128,3 @@ class RegressionEvaluation(ModelEvaluation):
 
         self._format_table(table=tbl, ax=ax)
         ax.set_title('Classification Report for {}'.format(self.model_name))
-
-        return ax
