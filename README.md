@@ -87,26 +87,53 @@ eval.report_table()
 
 ## Regression
 
-- Full report
-  - Mean sqr error
-  - Mean abs error
-  - Target mean, std
-  - R2
-- Residual plot
-- Scatter plot
-- Histogram of regressor
+### Scatter Plot
+
+```
+from mlplot.model_evaluation import RegressionEvaluation
+eval = RegressionEvaluation(y_true, y_pred, class_names, model_name)
+eval.scatter()
+```
+
+![scatter plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.evaluation.test_regression.test_scatter.png)
+
+### Residuals Plot
+
+```
+from mlplot.model_evaluation import RegressionEvaluation
+eval = RegressionEvaluation(y_true, y_pred, class_names, model_name)
+eval.residuals()
+```
+
+![scatter plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.evaluation.test_regression.test_residuals.png)
+
+### Residuals Histogram
+
+```
+from mlplot.model_evaluation import RegressionEvaluation
+eval = RegressionEvaluation(y_true, y_pred, class_names, model_name)
+eval.residuals_histogram()
+```
+
+![scatter plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.evaluation.test_regression.test_residuals_histogram.png)
+
+### Regression Report
+
+```
+from mlplot.model_evaluation import RegressionEvaluation
+eval = RegressionEvaluation(y_true, y_pred, class_names, model_name)
+eval.report_table()
+```
+
+![report table](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.evaluation.test_regression.test_report_table.png)
 
 ## Forecasts
 
 - TBD
 
-## Library Cleanup
+## Rankings
 
-- Try in a notebook
-- Logging
-- Default matplotlib setup
-- Multi-model comparison
-- Report to generate multiple plots at once
+- TBD
 
 # Development
 
@@ -149,4 +176,3 @@ ax = eval.confusion_matrix(threshold=0.7)
 - Linting
 - Type checking?
 - Security checks?
-- Plot decorator
