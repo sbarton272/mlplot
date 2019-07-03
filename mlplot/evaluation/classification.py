@@ -12,15 +12,15 @@ class ClassificationEvaluation(ModelEvaluation):
 
     Parameters
     ----------
-    y_true      : list or 1d numpy array with elements 0 or 1
-                  A collection of the true labels
-    y_pred      : list or 1d numpy array with elements 0.0 to 1.0
-                  A collection of the prediction probabilities of class value 1.
+    y_true : list or 1d numpy array with elements 0 or 1
+             A collection of the true labels
+    y_pred : list or 1d numpy array with elements 0.0 to 1.0
+             A collection of the prediction probabilities of class value 1.
     class_names : list with two string elements
                   These are the names of the two classes and they are used in plots.
                   The first string maps to the 0 class and the second to the 1 class.
-    model_name  : string
-                  The name of the model is used when creating plots
+    model_name : string
+                 The name of the model is used when creating plots
     """
 
     def __init__(self, y_true, y_pred, class_names, model_name):
@@ -85,7 +85,7 @@ class ClassificationEvaluation(ModelEvaluation):
 
     @plot
     def roc_curve(self, ax=None):
-        """Plot a reciever operating curve
+        """Plot a receiver operating curve
 
         Parameters
         ----------
