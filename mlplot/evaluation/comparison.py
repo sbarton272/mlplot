@@ -13,13 +13,9 @@ class ClassificationComparison():
         self._evaluations = evaluations
 
     @plot
-    def roc_curve(self, ax):
-        """Plot a reciever operating curve
+    def roc_curve(self, ax=None):
+        ClassificationEvaluation.roc_curve.__doc__
 
-        Parameters
-        ----------
-        ax : matplotlib.axes.Axes, optional
-        """
         # Plot each ROC curve
         for evl in self._evaluations:
             evl.roc_curve(ax=ax)
@@ -32,11 +28,3 @@ class ClassificationComparison():
         ax.set_title('ROC Curve')
         ax.legend()  # Recompute legend
 
-    # TODO decorator
-    def _validate_axes(self, ax):
-        """Validate matplotlib axes or generate one if not provided"""
-        if ax and not isinstance(ax, matplotlib.axes.Axes):
-            raise InvalidArgument('You must pass a valid matplotlib.axes.Axes')
-        elif not ax:
-            _, ax = plt.subplots()
-        return ax
