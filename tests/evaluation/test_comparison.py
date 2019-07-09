@@ -8,6 +8,8 @@ from mlplot.evaluation import ClassificationComparison, ClassificationEvaluation
 @pytest.fixture
 def cls_comp():
     """Setup an example ClassificationComparison"""
+    np.random.seed(3102954)
+
     # First model
     y_true = np.random.randint(2, size=10000)
     y_pred = np.clip(np.random.normal(0.25, 0.3, size=y_true.shape) + y_true * 0.5, 0, 1)

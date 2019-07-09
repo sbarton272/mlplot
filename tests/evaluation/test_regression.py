@@ -8,6 +8,7 @@ from mlplot.errors import InvalidArgument
 @pytest.fixture
 def reg_eval():
     """Setup an example RegressionEvaluation"""
+    np.random.seed(3215125)
     y_true = np.random.normal(size=10000)
     y_pred = np.random.normal(0.25, 0.3, size=y_true.shape) + y_true
 
