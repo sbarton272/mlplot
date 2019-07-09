@@ -2,7 +2,7 @@
 import sklearn.metrics as metrics
 
 from . import np, sp, plt
-from .decorators import plot
+from .decorators import plot, table
 from .evaluation import ModelEvaluation
 from ..errors import InvalidArgument
 
@@ -107,7 +107,7 @@ class ClassificationEvaluation(ModelEvaluation):
         ax.legend(loc='lower right')
 
     @plot
-    def calibration(self, n_bins='auto', ax=None):
+    def calibration(self, bins='auto', ax=None):
         """Plot a calibration plot
 
         Calibration plots are used the determine how well the predicted values match the true value.
@@ -116,12 +116,12 @@ class ClassificationEvaluation(ModelEvaluation):
 
         Parameters
         ----------
-        n_bins : int or string
-                The number of bins to group y_pred. See `numpy.histogram <https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.histogram.html>`_
+        bins : int or string
+               The number of bins to group y_pred. See `numpy.histogram <https://docs.scipy.org/doc/numpy-1.13.0/reference/generated/numpy.histogram.html>`_
         ax : matplotlib.axes.Axes, optional
         """
         # Calculate bin counts
-        counts, bin_edges = np.histogram(self.y_pred, bins=n_bins, range=(0, 1))
+        counts, bin_edges = np.histogram(self.y_pred, bins=bins, range=(0, 1))
         bin_labels = np.digitize(self.y_pred, bin_edges[:-1]) - 1
         fraction_positive = np.bincount(bin_labels, weights=self.y_true) / counts
         centers = np.bincount(bin_labels, weights=self.y_pred) / counts
@@ -169,6 +169,7 @@ class ClassificationEvaluation(ModelEvaluation):
 
         # Create the figure
         if x_axis == 'recall':
+            # TODO coloring
             label = '{0}|Avg Precision={1:0.2f}'.format(self.model_name, average_precision)
             ax.step(recall, precision, where='post', label=label)
             ax.set_xlabel('Recall')
@@ -198,6 +199,7 @@ class ClassificationEvaluation(ModelEvaluation):
         ----------
         ax : matplotlib.axes.Axes, optional
         """
+        # TODO KDE
         alpha = 0.5  # Bars should be fairly transparent
         cond = self.y_true.astype(bool)
         label = '{}|class={}'.format(self.model_name, self.class_names[0])
@@ -250,30 +252,33 @@ class ClassificationEvaluation(ModelEvaluation):
         ax.set_xlabel('Predicted Class | Threshold={}'.format(threshold))
         ax.set_title('Confusion Matrix for {}'.format(self.model_name))
 
-    @plot
+    @table
     def report_table(self, ax=None):
         """Generate a report table containing key stats about the dataset
 
         Parameters
         ----------
+        data : list
+               list where rows will be appended
         ax : matplotlib.axes.Axes, optional
         """
-        tbl = []
+        data = []
 
         # Sample counts
-        tbl.extend([
+        data.extend([
             ('Total observations', len(self.y_true)),
             ('Class "{}" count'.format(self.class_names[0]), int((self.y_true == 0).sum())),
             ('Class "{}" count'.format(self.class_names[1]), int((self.y_true == 1).sum())),
         ])
 
         # Scoring
-        tbl.extend([
+        data.extend([
             ('F1 Score', self.f1_score()),
             ('Accuracy', self.accuracy_score()),
             ('AUC', self.roc_auc_score()),
             ('Avg Precision', self.average_precision_score()),
         ])
 
-        self._format_table(table=tbl, ax=ax)
         ax.set_title('Classification Report for {}'.format(self.model_name))
+
+        return data

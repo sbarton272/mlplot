@@ -2,7 +2,7 @@
 import sklearn.metrics as metrics
 
 from . import np, sp, plt
-from .decorators import plot
+from .decorators import plot, table
 from .evaluation import ModelEvaluation
 from ..errors import InvalidArgument
 
@@ -99,7 +99,7 @@ class RegressionEvaluation(ModelEvaluation):
         ax.set_xlabel('Residual {} (Prediction - Actual)'.format(self.value_name))
         ax.set_ylabel('Occurances')
 
-    @plot
+    @table
     def report_table(self, ax=None):
         """Generate a report table containing key stats about the dataset
 
@@ -107,10 +107,10 @@ class RegressionEvaluation(ModelEvaluation):
         ----------
         ax : matplotlib.axes.Axes, optional
         """
-        tbl = []
+        data = []
 
         # Simple stats
-        tbl.extend([
+        data.extend([
             ('Total observations', len(self.y_true)),
             ('Mean {}'.format(self.value_name), np.mean(self.y_true)),
             ('25th percentile {}'.format(self.value_name), np.percentile(self.y_true, 25)),
@@ -119,12 +119,13 @@ class RegressionEvaluation(ModelEvaluation):
         ])
 
         # Scoring
-        tbl.extend([
+        data.extend([
             ('MSE', self.mse_score()),
             ('MAE', self.mae_score()),
             ('R2', self.r2_score()),
             ('Explained Var', self.explained_variance_score()),
         ])
 
-        self._format_table(table=tbl, ax=ax)
         ax.set_title('Classification Report for {}'.format(self.model_name))
+
+        return data

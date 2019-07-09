@@ -27,35 +27,3 @@ class ModelEvaluation():
             return np.array(collection).ravel()
         except:
             raise InvalidArgument('Cannot convert {} to 1D numpy array'.format(collection_name))
-
-    def _format_table(self, table, ax):
-        """Matplotlib tables don't behave well by default"""
-        # Format the rows
-        rows = []
-        for lbl, val in table:
-            if isinstance(val, int):
-                formatted = [lbl, val]
-            else:
-                formatted = [lbl, '{:.2f}'.format(val)]
-            rows.append(formatted)
-
-        # Create the table
-        ax_tbl = ax.table(cellText=rows, loc='center')
-        ax.set_xticks([])
-        ax.set_yticks([])
-
-        # Remove border
-        [line.set_linewidth(0) for line in ax.spines.values()]
-
-        # Values left justified
-        cells = ax_tbl.properties()['celld']
-        for row in range(len(table)):
-            cells[row, 1]._loc = 'left'
-
-        # Remove table borders
-        for cell in cells.values():
-            cell.set_linewidth(0)
-
-        # Make cells larger
-        for cell in cells.values():
-            cell.set_height(0.1)
