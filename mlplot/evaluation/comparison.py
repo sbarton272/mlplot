@@ -1,4 +1,6 @@
 """Plot multiple evaluation plots together for comparison"""
+from collections import OrderedDict
+
 import matplotlib
 import matplotlib.pyplot as plt
 
@@ -26,6 +28,11 @@ class ClassificationComparison():
         # TODO test class names same
 
         self._evaluations = evaluations
+
+    @property
+    def count(self):
+        """Return the number of compared models"""
+        return len(self._evaluations)
 
     @plot
     def roc_curve(self, ax=None):
@@ -118,17 +125,41 @@ class ClassificationComparison():
         ----------
         ax : matplotlib.axes.Axes, optional
         """
+        data = []
+
+        # Get the table indices (first col)
+        table = self._evaluations[0].report_table().tables[0]
+        cells = table.get_celld()  # Cells is a dict of (row, col) ==> cell
+        n_rows = max(row_i for row_i, _ in cells.keys()) + 1
+
+        # Generate each row including one extra row for model name
+        for row_i in range(n_rows + 1):
+            row = [''] * (self.count + 1)
+            data.append(row)
+
+        # Add the top row index label
+        data[0][0] = 'model name'
+
+        # Fill in the row index labels
+        for row_i in range(n_rows):
+            label = cells[row_i, 0].get_text().get_text()
+            data[row_i + 1][0] = label
+
         # Get all table contents
-        contents = []
-        for evl in self._evaluations:
-            tbl_ax = evl.report_table()
-            table = tbl_ax.tables[0]
+        for eval_n, evl in enumerate(self._evaluations):
+            # Fill in the model name
+            data[0][eval_n + 1] = evl.model_name
+
+            # Fill in the remainder of the table
+            table = evl.report_table().tables[0]
             cells = table.get_celld()
-            text = np.array()
-            for loc, cell in cells.items():
-                text[loc] = cell.get_text().get_text()
-            contents.append(text)
-        assert False
+            for row_i, col_i in sorted(OrderedDict(cells)):
+                if col_i == 0:
+                    continue
+                text = cells[row_i, col_i].get_text().get_text()
+                col_idx = eval_n + 1  # Offset by index col
+                row_idx = row_i + 1  # Offset by model name row
+                data[row_idx][col_idx] = text
 
         ax.set_title('Classification Report')
 

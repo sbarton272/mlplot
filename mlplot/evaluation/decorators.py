@@ -55,14 +55,15 @@ def table(table_function):
 
         # Format the data rows
         rows = []
-        for lbl, val in data:
-            if isinstance(val, int):
-                formatted = [lbl, val]
-            elif isinstance(val, float):
-                formatted = [lbl, '{:.2f}'.format(val)]
-            else:
-                formatted = [lbl, val]
-            rows.append(formatted)
+        for row in data:
+            formatted_row = []
+            for item in row:
+                if isinstance(item, float):
+                    formatted_item = '{:.2f}'.format(item)
+                else:
+                    formatted_item = str(item)
+                formatted_row.append(formatted_item)
+            rows.append(formatted_row)
 
         # Create the table
         ax = kwargs[AX_ARG]
@@ -73,10 +74,11 @@ def table(table_function):
         # Remove border
         [line.set_linewidth(0) for line in ax.spines.values()]
 
-        # Values left justified
+        # Non-index (first col) items left justified
         cells = table.properties()['celld']
-        for row in range(len(data)):
-            cells[row, 1]._loc = 'left'
+        for row_i in range(len(data)):
+            for col_i in range(1, len(data[row_i])):
+                cells[row_i, col_i]._loc = 'left'
 
         # Remove table borders
         for cell in cells.values():
