@@ -25,7 +25,10 @@ class ClassificationComparison():
         if any([not isinstance(evl, ClassificationEvaluation) for evl in evaluations]):
             raise InvalidArgument('Provide a list of ClassificationEvaluation objects.')
 
-        # TODO test class names same
+        class_names = evaluations[0].class_names
+        for evl in evaluations:
+            if evl.class_names != class_names:
+                raise InvalidArgument('Cannot compare between classification evaluations with different classes.')
 
         self._evaluations = evaluations
 

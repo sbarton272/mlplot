@@ -3,13 +3,12 @@ import pytest
 
 from .. import np, output_ax
 
+from mlplot.errors import InvalidArgument
 from mlplot.evaluation import ClassificationComparison, ClassificationEvaluation
 
 @pytest.fixture
 def cls_comp():
     """Setup an example ClassificationComparison"""
-    np.random.seed(3102954)
-
     # First model
     y_true = np.random.randint(2, size=10000)
     y_pred = np.clip(np.random.normal(0.25, 0.3, size=y_true.shape) + y_true * 0.5, 0, 1)
@@ -45,7 +44,36 @@ def cls_comp():
 
     return ClassificationComparison([eval1, eval2, eval3])
 
-# TODO test inputs
+def test_inputs():
+    with pytest.raises(InvalidArgument) as exception:
+        ClassificationComparison([])
+    assert 'at least 2' in str(exception.value)
+
+    with pytest.raises(InvalidArgument) as exception:
+        ClassificationComparison([None, None])
+    assert 'ClassificationEvaluation objects' in str(exception.value)
+
+    # Test evals with different classes
+    y_true = np.random.randint(2, size=10000)
+    y_pred = np.clip(np.random.normal(0.25, 0.3, size=y_true.shape) + y_true * 0.5, 0, 1)
+
+    eval1 = ClassificationEvaluation(
+        y_true=y_true,
+        y_pred=y_pred,
+        class_names=['a', 'b'],
+        model_name='train',
+    )
+
+    eval2 = ClassificationEvaluation(
+        y_true=y_true,
+        y_pred=y_pred,
+        class_names=['c', 'd'],
+        model_name='test',
+    )
+
+    with pytest.raises(InvalidArgument) as exception:
+        ClassificationComparison([eval1, eval2])
+    assert 'different classes' in str(exception.value)
 
 def test_roc_curve(cls_comp, output_ax):
     cls_comp.roc_curve(ax=output_ax)

@@ -169,7 +169,6 @@ class ClassificationEvaluation(ModelEvaluation):
 
         # Create the figure
         if x_axis == 'recall':
-            # TODO coloring
             label = '{0}|Avg Precision={1:0.2f}'.format(self.model_name, average_precision)
             ax.step(recall, precision, where='post', label=label)
             ax.set_xlabel('Recall')
@@ -177,9 +176,9 @@ class ClassificationEvaluation(ModelEvaluation):
 
         elif x_axis == 'threshold':
             label = '{0} recall|Avg Precision={1:0.2f}'.format(self.model_name, average_precision)
-            ax.plot(threshold, recall[:-1], label=label)
+            line = ax.plot(threshold, recall[:-1], linestyle='dotted', label=label)[0]
             label = '{0} precision|Avg Precision={1:0.2f}'.format(self.model_name, average_precision)
-            ax.plot(threshold, precision[:-1], label=label)
+            ax.plot(threshold, precision[:-1], color=line.get_color(), linestyle='dashed', label=label)
             ax.set_xlabel('Threshold')
             ax.set_ylabel('Precision/Recall')
 
