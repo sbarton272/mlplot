@@ -5,6 +5,7 @@ from .. import np, output_ax
 
 from mlplot.errors import InvalidArgument
 from mlplot.evaluation import ClassificationComparison, ClassificationEvaluation
+from mlplot.evaluation import RegressionComparison, RegressionEvaluation
 
 @pytest.fixture
 def cls_comp():
@@ -43,6 +44,45 @@ def cls_comp():
     )
 
     return ClassificationComparison([eval1, eval2, eval3])
+
+# TODO split apart classes and tests
+@pytest.fixture
+def reg_comp():
+    """Setup an example RegressionComparison"""
+    # First model
+    y_true = np.random.normal(size=100)
+    y_pred = np.random.normal(0.25, 0.3, size=y_true.shape) + y_true
+
+    eval1 = RegressionEvaluation(
+        y_true=y_true,
+        y_pred=y_pred,
+        value_name='variable',
+        model_name='test',
+    )
+
+    # Second model
+    y_true = np.random.normal(size=100)
+    y_pred = np.random.normal(0.2, 0.3, size=y_true.shape) + y_true
+
+    eval2 = RegressionEvaluation(
+        y_true=y_true,
+        y_pred=y_pred,
+        value_name='variable',
+        model_name='train',
+    )
+
+    # Third model
+    y_true = np.random.normal(size=100)
+    y_pred = np.random.normal(0.3, 0.3, size=y_true.shape) + y_true
+
+    eval3 = RegressionEvaluation(
+        y_true=y_true,
+        y_pred=y_pred,
+        value_name='variable',
+        model_name='validate',
+    )
+
+    return RegressionComparison([eval1, eval2, eval3])
 
 def test_inputs():
     with pytest.raises(InvalidArgument) as exception:

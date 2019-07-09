@@ -126,6 +126,6 @@ class RegressionEvaluation(ModelEvaluation):
             ('Explained Var', self.explained_variance_score()),
         ])
 
-        ax.set_title('Classification Report for {}'.format(self.model_name))
+        ax.set_title('Regression Report for {}'.format(self.model_name))
 
         return data

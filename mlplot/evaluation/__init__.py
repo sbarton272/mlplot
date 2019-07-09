@@ -5,12 +5,13 @@ import numpy as np
 import scipy as sp
 
 from .classification import ClassificationEvaluation
-from .comparison import ClassificationComparison
+from .comparison import ClassificationComparison, RegressionComparison
 from .regression import RegressionEvaluation
 
-# Set the visible
+# Set the visible classes
 __all__ = [
-    'ClassificationEvaluation',
     'ClassificationComparison',
+    'ClassificationEvaluation',
+    'RegressionComparison',
     'RegressionEvaluation',
 ]
