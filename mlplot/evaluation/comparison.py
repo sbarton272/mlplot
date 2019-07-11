@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 
 from ..errors import InvalidArgument
 from . import np
-from .classification import ClassificationEvaluation, RegressionEvaluation
+from .classification import ClassificationEvaluation
+from .regression import RegressionEvaluation
 from .decorators import plot, table
 
 class ModelComparison():

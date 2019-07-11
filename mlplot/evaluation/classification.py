@@ -199,6 +199,8 @@ class ClassificationEvaluation(ModelEvaluation):
         ax : matplotlib.axes.Axes, optional
         """
         # TODO KDE
+        # TODO same bins for the histogram
+
         alpha = 0.5  # Bars should be fairly transparent
         cond = self.y_true.astype(bool)
         label = '{}|class={}'.format(self.model_name, self.class_names[0])
