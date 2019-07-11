@@ -1,4 +1,4 @@
-"""mlplot.model_evaluation module entrypoint"""
+"""mlplot.evaluation module entrypoint"""
 
 import matplotlib.pyplot as plt
 import numpy as np

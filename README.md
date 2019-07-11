@@ -18,79 +18,80 @@ Create a PR!
 
 # Plots
 
-Work was inspired by [sklearn model evaluation](http://scikit-learn.org/stable/modules/model_evaluation.html).
+Work was inspired by [sklearn model evaluation](http://scikit-learn.org/stable/modules/evaluation.html).
 
 ## Classification
 
 ### ROC with AUC number
 
 ```
-from mlplot.model_evaluation import ClassificationEvaluation
+from mlplot.evaluation import ClassificationEvaluation
 eval = ClassificationEvaluation(y_true, y_pred, class_names, model_name)
 eval.roc_curve()
 ```
 
-![ROC plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classification.test_roc_curve.png)
+https://github.com/sbarton272/mlplot/blob/master/tests/output/tests.evaluation.test_classification.test_calibration.png?raw=true
+![ROC plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.evaluation.test_classification.test_roc_curve.png)
 
 ### Calibration
 
 ```
-from mlplot.model_evaluation import ClassificationEvaluation
+from mlplot.evaluation import ClassificationEvaluation
 eval = ClassificationEvaluation(y_true, y_pred, class_names, model_name)
 eval.calibration()
 ```
 
-![calibration plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classification.test_calibration.png)
+![calibration plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.evaluation.test_classification.test_calibration.png)
 
 ### Precision-Recall
 
 ```
-from mlplot.model_evaluation import ClassificationEvaluation
+from mlplot.evaluation import ClassificationEvaluation
 eval = ClassificationEvaluation(y_true, y_pred, class_names, model_name)
 eval.precision_recall(x_axis='recall')
 eval.precision_recall(x_axis='thresold')
 ```
 
-![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classification.test_precision_recall_regular.png)
+![precision recall curve plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.evaluation.test_classification.test_precision_recall_regular.png)
 
-![precision recall threshold plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classification.test_precision_recall_threshold.png)
+![precision recall threshold plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.evaluation.test_classification.test_precision_recall_threshold.png)
 
 ### Distribution
 
 ```
-from mlplot.model_evaluation import ClassificationEvaluation
+from mlplot.evaluation import ClassificationEvaluation
 eval = ClassificationEvaluation(y_true, y_pred, class_names, model_name)
 eval.distribution()
 ```
 
-![distribution plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classification.test_distribution.png)
+![distribution plot](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.evaluation.test_classification.test_distribution.png)
 
 ### Confusion Matrix
 
 ```
-from mlplot.model_evaluation import ClassificationEvaluation
+from mlplot.evaluation import ClassificationEvaluation
 eval = ClassificationEvaluation(y_true, y_pred, class_names, model_name)
 eval.confusion_matrix(threshold=0.5)
 ```
 
-![confusion matrix](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classification.test_confusion_matrix.png)
+![confusion matrix](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.evaluation.test_classification.test_confusion_matrix.png)
 
 ### Classification Report
 
 ```
-from mlplot.model_evaluation import ClassificationEvaluation
+from mlplot.evaluation import ClassificationEvaluation
 eval = ClassificationEvaluation(y_true, y_pred, class_names, model_name)
 eval.report_table()
 ```
 
-![classification report](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.model_evaluation.test_classification.test_report_table.png)
+![classification report](https://raw.githubusercontent.com/sbarton272/mlplot/master/tests/output/tests.evaluation.test_classification.test_report_table.png)
 
 ## Regression
 
 ### Scatter Plot
 
 ```
-from mlplot.model_evaluation import RegressionEvaluation
+from mlplot.evaluation import RegressionEvaluation
 eval = RegressionEvaluation(y_true, y_pred, class_names, model_name)
 eval.scatter()
 ```
@@ -100,7 +101,7 @@ eval.scatter()
 ### Residuals Plot
 
 ```
-from mlplot.model_evaluation import RegressionEvaluation
+from mlplot.evaluation import RegressionEvaluation
 eval = RegressionEvaluation(y_true, y_pred, class_names, model_name)
 eval.residuals()
 ```
@@ -110,7 +111,7 @@ eval.residuals()
 ### Residuals Histogram
 
 ```
-from mlplot.model_evaluation import RegressionEvaluation
+from mlplot.evaluation import RegressionEvaluation
 eval = RegressionEvaluation(y_true, y_pred, class_names, model_name)
 eval.residuals_histogram()
 ```
@@ -120,7 +121,7 @@ eval.residuals_histogram()
 ### Regression Report
 
 ```
-from mlplot.model_evaluation import RegressionEvaluation
+from mlplot.evaluation import RegressionEvaluation
 eval = RegressionEvaluation(y_true, y_pred, class_names, model_name)
 eval.report_table()
 ```
@@ -148,11 +149,11 @@ twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
 Basic interface thoughts
 ```
-from mlplot.model_evaluation import ClassificationEvaluation
-from mlplot.model_evaluation import RegressorEvaluation
-from mlplot.model_evaluation import MultiClassificationEvaluation
-from mlplot.model_evaluation import MultiRegressorEvaluation
-from mlplot.model_evaluation import ModelComparison
+from mlplot.evaluation import ClassificationEvaluation
+from mlplot.evaluation import RegressorEvaluation
+from mlplot.evaluation import MultiClassificationEvaluation
+from mlplot.evaluation import MultiRegressorEvaluation
+from mlplot.evaluation import ModelComparison
 from mlplot.feature_evaluation import *
 
 eval = ClassificationEvaluation(y_true, y_pred)
