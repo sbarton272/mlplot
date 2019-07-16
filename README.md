@@ -173,8 +173,8 @@ ax = eval.confusion_matrix(threshold=0.7)
 
 # TODO
 
-- Finish documentation
-- Fix distribution plot
+- Fix distribution plot, make lines
 - Add legend with R2 to regression plots
 - Add tests for regression comparison
 - Split apart files for comparison classes
+- Add comparisons to README

@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 import sys
 
-VERSION = '0.0.0'
+VERSION = '0.0.2'
 
 INSTALL_REQUIRES = [
     'matplotlib==2.2.3',
@@ -10,9 +10,6 @@ INSTALL_REQUIRES = [
     'scipy==1.1.0',
     'scikit-learn==0.19.2',
 ]
-# Python 2 Dependencies
-if sys.version_info[0] == 2:
-    INSTALL_REQUIRES.append('pathlib==1.0.1')
 
 setup(
     name='mlplot',
