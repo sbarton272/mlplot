@@ -2,13 +2,13 @@
 from setuptools import setup, find_packages
 import sys
 
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 
 INSTALL_REQUIRES = [
-    'matplotlib==2.2.3',
-    'numpy==1.15.1',
-    'scipy==1.1.0',
-    'scikit-learn==0.19.2',
+    'matplotlib>=2.2.3',
+    'numpy>=1.15.1',
+    'scipy>=1.1.0',
+    'scikit-learn>=0.19.2',
 ]
 
 setup(
